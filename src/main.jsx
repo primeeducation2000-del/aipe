@@ -18,6 +18,7 @@ import {
   Mail,
   Menu,
   Network,
+  Play,
   Puzzle,
   Search,
   ShieldCheck,
@@ -137,6 +138,21 @@ const routes = {
     title: 'AI Training and Future Qualifications | AIPE',
     description:
       'How AIPE distinguishes professional training, certificates of completion and future regulated qualification pathways.'
+  },
+  '/automation-agent-visual': {
+    title: 'AI Automation and Agents Visual Prototype | AIPE',
+    description:
+      'A local visual prototype showing how AIPE explains automation and AI agents as controlled, practical business workflows.'
+  },
+  '/trailer-storyboard': {
+    title: 'AIPE Trailer Storyboard | AIPE',
+    description:
+      'A local storyboard concept for an AIPE visual trailer covering learning, team training, automation and AI systems.'
+  },
+  '/screen-preview': {
+    title: 'AIPE Responsive Screen Preview | AIPE',
+    description:
+      'A local responsive preview page for checking the AIPE homepage across common screen sizes.'
   }
 };
 
@@ -505,7 +521,7 @@ function Header({ path, navigate, menuOpen, setMenuOpen }) {
     <header className="site-header">
       <div className="container header-inner">
         <Link href="/" navigate={navigate} className="brand" aria-label="AIPE home">
-          <span><strong>AIPE</strong><small>AI in Plain English</small></span>
+          <img src="/aipe-logo-main-lockup.png" alt="AIPE - AI in Plain English" />
         </Link>
         <button className="icon-button menu-button" aria-label="Open navigation" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -528,7 +544,9 @@ function Footer({ navigate }) {
     <footer className="footer">
       <div className="container footer-grid">
         <div>
-          <div className="brand footer-brand"><span className="brand-mark">AI</span><span><strong>AIPE</strong><small>AI in Plain English</small></span></div>
+          <div className="footer-logo-wrap">
+            <img src="/aipe-logo-main-lockup.png" alt="AIPE - AI in Plain English" />
+          </div>
           <p>AI training, corporate upskilling, funded delivery support, AI engineering and managed AI services, explained in plain English.</p>
         </div>
         <FooterCol title="Explore" items={['Learn', 'For Business', 'AI Solutions', 'Partners']} navigate={navigate} />
@@ -552,6 +570,8 @@ function FooterCol({ title, items, navigate }) {
 }
 
 function Home({ navigate }) {
+  const [isTrailerOpen, setIsTrailerOpen] = useState(false);
+
   return (
     <>
       <section className="hero">
@@ -599,6 +619,7 @@ function Home({ navigate }) {
         <div className="container minimal-hero">
           <div className="hero-copy">
             <p className="eyebrow">AIPE for work</p>
+            <AipeTrailerPreview isOpen={isTrailerOpen} onOpen={() => setIsTrailerOpen(true)} onClose={() => setIsTrailerOpen(false)} />
             <div className="hero-visual-title" aria-label="Choose how AIPE can help">
               <Link href="/learn" navigate={navigate} className="visual-step">
                 <span className="visual-icon"><GraduationCap size={26} /></span>
@@ -631,6 +652,65 @@ function Home({ navigate }) {
           <span>Build AI systems</span>
         </div>
       </section>
+    </>
+  );
+}
+
+function AipeTrailerPreview({ isOpen, onOpen, onClose }) {
+  const trailerVideos = [
+    { title: 'AIPE engineer arrives', src: '/aipe-trailer-engineer-entrance.mp4' },
+    { title: 'AI workshop training', src: '/aipe-trailer-workshop-motion.mp4' },
+    { title: 'Automation in motion', src: '/aipe-trailer-office-motion.mp4' }
+  ];
+  const [activeVideo, setActiveVideo] = useState(0);
+  const currentVideo = trailerVideos[activeVideo];
+  const playNext = () => setActiveVideo((index) => (index + 1) % trailerVideos.length);
+
+  useEffect(() => {
+    if (!isOpen) return undefined;
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
+  return (
+    <>
+      <button className="trailer-chip" type="button" onClick={onOpen} aria-label={`Open AIPE video trailer: ${currentVideo.title}`} aria-haspopup="dialog" aria-expanded={isOpen}>
+        <video className="trailer-chip-video" src={currentVideo.src} autoPlay muted playsInline onEnded={playNext} />
+        <span className="trailer-chip-overlay">
+          <span className="trailer-play"><Play size={15} fill="currentColor" /></span>
+        </span>
+      </button>
+
+      {isOpen && (
+        <div className="trailer-overlay" role="presentation" onMouseDown={onClose}>
+          <section className="trailer-modal" role="dialog" aria-modal="true" aria-labelledby="trailer-title" onMouseDown={(event) => event.stopPropagation()}>
+            <button className="trailer-close" type="button" onClick={onClose} aria-label="Close AIPE trailer"><X size={20} /></button>
+            <div className="trailer-video-stage" aria-label="AIPE video trailer preview">
+              <video key={currentVideo.src} className="trailer-main-video" src={currentVideo.src} autoPlay controls playsInline onEnded={playNext} />
+              <div className="trailer-video-badge">
+                <small>AIPE</small>
+                <strong>{currentVideo.title}</strong>
+              </div>
+            </div>
+            <div className="trailer-caption">
+              <p className="eyebrow">Video trailer</p>
+              <h2 id="trailer-title">AIPE in motion.</h2>
+              <p>A small homepage trailer showing AIPE entering an organisation, teaching practical AI and turning repeated work into clearer systems.</p>
+              <div className="trailer-playlist" aria-label="Choose trailer scene">
+                {trailerVideos.map((video, index) => (
+                  <button type="button" className={index === activeVideo ? 'active' : ''} onClick={() => setActiveVideo(index)} key={video.src}>
+                    <span>0{index + 1}</span>
+                    {video.title}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
+      )}
     </>
   );
 }
@@ -1310,6 +1390,250 @@ function LeadBand({ navigate }) {
   return <section className="lead-band"><div className="container lead-band-inner"><div><p className="eyebrow">Next step</p><h2>Start with a clear conversation.</h2><p>Tell AIPE whether you want to learn, train a team, automate a process, build a system or explore a delivery partnership.</p></div><Link href="/contact" navigate={navigate} className="button primary">Book a Consultation <ArrowRight size={18} /></Link></div></section>;
 }
 
+function AutomationAgentVisual() {
+  const manualItems = [
+    { label: 'Emails', icon: Mail },
+    { label: 'Forms', icon: FileText },
+    { label: 'CRM notes', icon: ClipboardCheck },
+    { label: 'Spreadsheets', icon: Library }
+  ];
+  const outcomes = [
+    { label: 'CRM updated', icon: CheckCircle2 },
+    { label: 'Task created', icon: Target },
+    { label: 'Reply drafted', icon: Mail },
+    { label: 'Team notified', icon: Users }
+  ];
+  const agentTools = ['Knowledge base', 'Business rules', 'APIs', 'Human approval'];
+
+  return (
+    <main className="agent-demo-page">
+      <section className="agent-demo-hero">
+        <div className="container">
+          <p className="eyebrow">Visual prototype</p>
+          <h1>AI automation should feel controlled, not mysterious.</h1>
+          <p className="lead">AIPE turns repeated work into clear workflows, with AI agents that use the right tools, follow rules and keep people in control.</p>
+          <div className="agent-demo-board" aria-label="AIPE automation and AI agent visual explanation">
+            <div className="agent-column manual-column">
+              <span className="agent-column-label">Before</span>
+              <h2>Manual work</h2>
+              <p>Repeated admin across disconnected tools.</p>
+              <div className="agent-stack">
+                {manualItems.map(({ label, icon: Icon }) => (
+                  <span key={label}><Icon size={18} />{label}</span>
+                ))}
+              </div>
+            </div>
+
+            <div className="agent-engine">
+              <div className="agent-rings" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </div>
+              <div className="agent-core">
+                <small>AIPE</small>
+                <strong>Workflow + Agent</strong>
+                <p>Reads, decides, acts and escalates within agreed rules.</p>
+              </div>
+              <div className="agent-tool-grid">
+                {agentTools.map((tool) => <span key={tool}>{tool}</span>)}
+              </div>
+            </div>
+
+            <div className="agent-column outcome-column">
+              <span className="agent-column-label">After</span>
+              <h2>Useful outcomes</h2>
+              <p>Work is completed, checked and visible.</p>
+              <div className="agent-stack">
+                {outcomes.map(({ label, icon: Icon }) => (
+                  <span key={label}><Icon size={18} />{label}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="agent-example-flow">
+            {['Email arrives', 'AI understands request', 'Information extracted', 'CRM updated', 'Human approves', 'Reply prepared'].map((step, index) => (
+              <React.Fragment key={step}>
+                <span>{step}</span>
+                {index < 5 && <ArrowRight size={18} aria-hidden="true" />}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function TrailerStoryboard() {
+  const scenes = [
+    {
+      time: '00:00',
+      title: 'The Organisation',
+      caption: 'A team is busy with repeated admin, scattered tools and unclear AI options.',
+      visual: 'Wide office shot: inboxes, spreadsheets, forms and dashboards floating around the team.',
+      icon: Building2
+    },
+    {
+      time: '00:08',
+      title: 'AIPE Engineer Arrives',
+      caption: 'An AIPE engineer walks in, listens first and explains the opportunity in plain English.',
+      visual: 'Clearly tagged AIPE engineer enters the organisation with a calm diagnostic dashboard.',
+      icon: BriefcaseBusiness
+    },
+    {
+      time: '00:16',
+      title: 'Diagnose the Work',
+      caption: 'The team maps what should be taught, improved, automated or built.',
+      visual: 'Tasks are sorted into four lanes: Learn AI, Train Teams, Automate Work, Build Systems.',
+      icon: Search
+    },
+    {
+      time: '00:25',
+      title: 'Teach and Train',
+      caption: 'People learn practical AI skills, prompting, productivity and responsible use.',
+      visual: 'Workshop-style learning: live examples, tasks, assessments and visible progress.',
+      icon: GraduationCap
+    },
+    {
+      time: '00:36',
+      title: 'Automate the Repetition',
+      caption: 'Everyday processes become clear workflows with human approval where needed.',
+      visual: 'Email arrives, AI extracts data, CRM updates, task is created, reply is drafted.',
+      icon: Workflow
+    },
+    {
+      time: '00:50',
+      title: 'Build the System',
+      caption: 'Agents, RAG, APIs and integrations support the organisation’s real work.',
+      visual: 'Finished AI operations dashboard resolves into: AIPE - AI in Plain English.',
+      icon: Layers3
+    }
+  ];
+
+  return (
+    <main className="storyboard-page">
+      <section className="storyboard-hero">
+        <div className="container storyboard-grid">
+          <div>
+            <p className="eyebrow">Trailer storyboard</p>
+            <h1>An AIPE engineer walks in and fixes the work.</h1>
+            <p className="lead">This trailer concept makes the service tangible: an AIPE engineer enters an organisation, finds the repetitive work, teaches the team, designs the workflow and helps build the system.</p>
+            <div className="storyboard-actions">
+              <span>Designed as a visual brief before production</span>
+              <span>No production deployment yet</span>
+            </div>
+          </div>
+
+          <div className="storyboard-preview" aria-label="Animated AIPE trailer storyboard preview">
+            <div className="preview-toolbar">
+              <span />
+              <span />
+              <span />
+              <strong>AIPE Trailer Preview</strong>
+            </div>
+            <div className="preview-stage">
+              <div className="engineer-tag" aria-hidden="true">
+                <span>AIPE</span>
+                <strong>AI Engineer</strong>
+              </div>
+              <div className="engineer-figure" aria-hidden="true">
+                <span className="figure-head" />
+                <span className="figure-body" />
+                <span className="figure-badge">AIPE</span>
+              </div>
+              {scenes.map(({ title, caption, icon: Icon }, index) => (
+                <article className="preview-scene" style={{ '--scene-index': index }} key={title}>
+                  <div className="preview-orbit" aria-hidden="true">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                  <span className="preview-icon"><Icon size={30} /></span>
+                  <h2>{title}</h2>
+                  <p>{caption}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="storyboard-strip">
+        <div className="container">
+          <div className="scene-rail">
+            {scenes.map(({ time, title, caption, visual, icon: Icon }, index) => (
+              <article className="scene-card" key={title}>
+                <div className="scene-card-top">
+                  <span>{time}</span>
+                  <Icon size={22} />
+                </div>
+                <h2>{index + 1}. {title}</h2>
+                <p>{caption}</p>
+                <small>{visual}</small>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function ScreenPreview() {
+  const screens = [
+    { label: 'Mobile', size: '390 x 844', width: 390, height: 844, scale: 0.74 },
+    { label: 'Tablet', size: '768 x 900', width: 768, height: 900, scale: 0.52 },
+    { label: 'Laptop', size: '1280 x 720', width: 1280, height: 720, scale: 0.38 },
+    { label: 'Large screen', size: '1920 x 1080', width: 1920, height: 1080, scale: 0.28 }
+  ];
+
+  return (
+    <main className="screen-preview-page">
+      <section className="screen-preview-hero">
+        <div className="container">
+          <p className="eyebrow">Local design check</p>
+          <h1>AIPE responsive screen preview.</h1>
+          <p className="lead">Compare the homepage hero across common screen sizes before pushing changes live.</p>
+          <div className="actions">
+            <Link href="/" className="button primary">Open Homepage <ArrowRight size={18} /></Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="screen-preview-grid-section">
+        <div className="screen-preview-grid">
+          {screens.map((screen) => (
+            <article className="screen-frame-card" key={screen.label}>
+              <div className="screen-frame-meta">
+                <div>
+                  <h2>{screen.label}</h2>
+                  <p>{screen.size}</p>
+                </div>
+                <a href="/" target="_blank" rel="noreferrer">Open</a>
+              </div>
+              <div className="screen-frame-shell">
+                <iframe
+                  title={`Homepage preview - ${screen.label}`}
+                  src="/"
+                  width={screen.width}
+                  height={screen.height}
+                  style={{
+                    '--preview-width': `${screen.width}px`,
+                    '--preview-height': `${screen.height}px`,
+                    '--preview-scale': screen.scale
+                  }}
+                />
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </main>
+  );
+}
+
 function InfoCard({ icon: Icon, title, text }) {
   return <article className="card info-card"><Icon size={24} /><h3>{title}</h3><p>{text}</p></article>;
 }
@@ -1343,6 +1667,9 @@ function resolvePage(path) {
   if (path === '/contact') return Contact;
   if (path === '/sectors') return Sectors;
   if (path === '/qualifications') return Qualifications;
+  if (path === '/automation-agent-visual') return AutomationAgentVisual;
+  if (path === '/trailer-storyboard') return TrailerStoryboard;
+  if (path === '/screen-preview') return ScreenPreview;
   if (path.startsWith('/lms')) return () => <ProtectedSkeleton kind="lms" />;
   if (path.startsWith('/admin')) return () => <ProtectedSkeleton kind="admin" />;
   const solution = solutions.find((s) => path === `/ai-solutions/${s.slug}`);
