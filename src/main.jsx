@@ -45,9 +45,19 @@ const routes = {
       'Explore practical AI training for work, productivity, automation, responsible AI and future AI engineering pathways.'
   },
   '/learner-ai': {
-    title: 'Learner AI Platform | AIPE',
+    title: 'Learner Login | AIPE',
     description:
-      'Preview the future AIPE learner platform for lessons, assessments, progress, certificates and tutor support.'
+      'Sign in to the AIPE learner platform for lessons, assessments, progress, tutor feedback and completion records.'
+  },
+  '/lms': {
+    title: 'Learner Portal Preview | AIPE',
+    description:
+      'Preview the AIPE learner portal for courses, lessons, assessments, progress, tutor feedback and completion records.'
+  },
+  '/admin': {
+    title: 'Assessor Dashboard Preview | AIPE',
+    description:
+      'Preview the AIPE admin and assessor dashboard for learner progress, assessment review, cohorts and reporting.'
   },
   '/courses/practical-ai-skills-for-work': {
     title: 'Practical AI Skills for Work | AIPE',
@@ -380,15 +390,16 @@ function App() {
   }
 
   const Page = useMemo(() => resolvePage(path), [path]);
+  const standalonePage = path === '/learner-ai';
 
   return (
     <>
       <a className="skip-link" href="#main">Skip to content</a>
-      <Header path={path} navigate={navigate} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <main id="main">
+      {!standalonePage && <Header path={path} navigate={navigate} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />}
+      <main id="main" className={standalonePage ? 'standalone-main' : ''}>
         <Page navigate={navigate} />
       </main>
-      <Footer navigate={navigate} />
+      {!standalonePage && <Footer navigate={navigate} />}
     </>
   );
 }
@@ -532,8 +543,17 @@ function Header({ path, navigate, menuOpen, setMenuOpen }) {
               {item.label}
             </Link>
           ))}
+          <Link href="/learner-ai" navigate={navigate} className={path === '/learner-ai' ? 'active mobile-learner-link' : 'mobile-learner-link'}>
+            Learner Platform
+          </Link>
         </nav>
-        <Link href="/contact" navigate={navigate} className="button primary header-cta">Book a Consultation</Link>
+        <div className="header-actions">
+          <Link href="/contact" navigate={navigate} className="button primary header-cta">Book a Consultation</Link>
+          <Link href="/learner-ai" navigate={navigate} className="button learner-header-cta">
+            <GraduationCap size={18} />
+            Learner Platform
+          </Link>
+        </div>
       </div>
     </header>
   );
@@ -1253,6 +1273,62 @@ function MessageIcon(props) {
   return <Mail {...props} />;
 }
 
+function LearnerLoginPage({ navigate }) {
+  return (
+    <section className="learner-login-page">
+      <div className="learner-login-shell">
+        <div className="learner-login-brands">
+          <Link href="/" navigate={navigate} className="login-brand-card" aria-label="AIPE home">
+            <img src="/aipe-logo-main-lockup.png" alt="AIPE - AI in Plain English" />
+          </Link>
+          <div className="login-product-card">
+            <GraduationCap size={28} />
+            <div>
+              <strong>Learner Portal</strong>
+              <span>AIPE Academy</span>
+            </div>
+          </div>
+        </div>
+
+        <article className="learner-login-card">
+          <p>Sign in to continue your AIPE course. Use the email address provided when you joined your programme or learner cohort.</p>
+          <form onSubmit={(event) => event.preventDefault()}>
+            <label htmlFor="learner-email">Email</label>
+            <input id="learner-email" type="email" placeholder="you@example.com" autoComplete="email" />
+            <label className="remember-device">
+              <input type="checkbox" defaultChecked />
+              <span>
+                <strong>Remember me</strong>
+                <small>Only use this on a device you trust.</small>
+              </span>
+            </label>
+            <Link href="/lms" navigate={navigate} className="button login-magic-link">Continue to Learner Portal</Link>
+          </form>
+          <Link href="/contact" navigate={navigate} className="login-request-link">Need learner access? Contact AIPE</Link>
+        </article>
+
+        <div className="learner-login-feature-grid">
+          <article>
+            <span><BookOpen size={18} /> Course Access</span>
+            <h2>Everything for your current course</h2>
+            <p>Continue lessons, view resources, prepare evidence and see what needs attention next.</p>
+          </article>
+          <article>
+            <span><CircleGauge size={18} /> Progress Workspace</span>
+            <h2>Clear progress without clutter</h2>
+            <p>Track modules, assessment status, saved resources and completion steps in one calm place.</p>
+          </article>
+        </div>
+
+        <footer className="learner-login-footer">
+          <strong>AIPE</strong>
+          <span><Link href="/" navigate={navigate}>Home</Link> · <Link href="/contact" navigate={navigate}>Support</Link></span>
+        </footer>
+      </div>
+    </section>
+  );
+}
+
 function LearnerWorkspaceMock() {
   return (
     <article className="learner-workspace">
@@ -1322,22 +1398,86 @@ function ProtectedSkeleton({ kind }) {
 
 function LearnerDashboard() {
   return (
-    <>
-      <PageHero eyebrow="Protected learner area" title="Learner dashboard preview." text="Frontend-only LMS preview for enrolled courses, progress, lessons, assessments, feedback and certificates. Live authentication and learner records are future backend work." />
-      <section className="section">
+    <main className="lms-flavour-page">
+      <section className="lms-flavour-hero">
+        <div className="container lms-hero-grid">
+          <div>
+            <p className="eyebrow">Learner portal preview</p>
+            <h1>Learn, practise, submit, improve.</h1>
+            <p className="lead">A first taste of the AIPE VLE/LMS: focused lessons, practical evidence, tutor feedback and progress that feels useful every time a learner signs in.</p>
+            <div className="actions">
+              <a href="#lesson-view" className="button primary">Continue Learning <Play size={18} /></a>
+              <a href="#assessments" className="button secondary bordered">View Assessment</a>
+            </div>
+          </div>
+          <LearnerWorkspaceMock />
+        </div>
+      </section>
+      <section className="section lms-dashboard-section">
         <div className="container dashboard-layout">
           <aside className="dashboard-nav">{protectedPages.lms.map((item) => <a key={item} href={`#${item.toLowerCase().replaceAll(' ', '-')}`}>{item}</a>)}</aside>
           <div className="dashboard-main">
-            <div className="dashboard-stats"><Stat label="Course progress" value="68%" /><Stat label="Assessments" value="1 due" /><Stat label="Certificates" value="Future" /></div>
-            <ProgressPanel />
-            <article className="dashboard-panel" id="my-courses"><h2>My Courses</h2><CourseProgressList /></article>
-            <article className="dashboard-panel" id="lesson-view"><h2>Next Lesson</h2><p>AI for meetings, notes and summaries</p><WorkflowVisual steps={['Watch lesson', 'Try prompt', 'Upload example', 'Reflect', 'Continue']} /></article>
-            <article className="dashboard-panel" id="assessments"><h2>Assessments</h2><p>Practical project: identify a real workplace task and explain how AI could improve it safely.</p><TagList items={['Draft saved', 'Evidence required', 'Tutor feedback pending']} /></article>
-            <article className="dashboard-panel" id="certificates"><h2>Certificates / Completion</h2><p>Completion certificates can be added for AIPE professional training once issue rules and templates are approved.</p></article>
+            <div className="dashboard-stats"><Stat label="Course progress" value="68%" /><Stat label="Study streak" value="4 days" /><Stat label="Feedback" value="2 notes" /></div>
+            <div className="lms-focus-grid">
+              <ProgressPanel />
+              <LearnerSupportPanel />
+            </div>
+            <article className="dashboard-panel lms-course-panel" id="my-courses"><h2>My Courses</h2><CourseProgressList /></article>
+            <LessonPlayerPanel />
+            <AssessmentPanel />
+            <article className="dashboard-panel certificate-panel" id="certificates"><h2>Certificates / Completion</h2><p>Certificate preview unlocks when all required lessons, evidence and tutor sign-off are complete.</p><div className="certificate-preview"><span>AIPE</span><strong>Certificate of Completion</strong><small>Practical AI Skills for Work</small></div></article>
           </div>
         </div>
       </section>
-    </>
+    </main>
+  );
+}
+
+function LearnerSupportPanel() {
+  return (
+    <article className="dashboard-panel support-panel" id="support">
+      <div><span className="mentor-avatar">AI</span><p className="eyebrow">Tutor note</p></div>
+      <h2>Good start. Strengthen your evidence with one real workplace example.</h2>
+      <p>Next action: add a before-and-after prompt example and explain how you checked accuracy, privacy and bias.</p>
+      <TagList items={['Evidence', 'Reflection', 'Responsible use']} />
+    </article>
+  );
+}
+
+function LessonPlayerPanel() {
+  return (
+    <article className="dashboard-panel lesson-player-panel" id="lesson-view">
+      <div className="lesson-player">
+        <div className="lesson-video">
+          <Play size={34} />
+          <span>Lesson 3.2</span>
+          <strong>AI for meetings, notes and summaries</strong>
+        </div>
+        <div className="lesson-outline">
+          <p className="eyebrow">Today</p>
+          <h2>Turn messy notes into useful work outputs.</h2>
+          <p>Watch the lesson, try the guided prompt, then upload a short reflection on where AI helped and where human checking mattered.</p>
+          <WorkflowVisual steps={['Watch lesson', 'Try prompt', 'Save output', 'Reflect', 'Submit']} />
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function AssessmentPanel() {
+  return (
+    <article className="dashboard-panel assessment-panel" id="assessments">
+      <div>
+        <p className="eyebrow">Assessment due</p>
+        <h2>Workplace AI improvement project</h2>
+        <p>Identify one repeated task, show the prompt or workflow you tested, and explain the checks needed before using the output at work.</p>
+      </div>
+      <div className="assessment-checklist">
+        {['Task chosen', 'Prompt draft saved', 'Evidence upload needed', 'Tutor feedback pending'].map((item, index) => (
+          <span key={item} className={index < 2 ? 'done' : ''}><CheckCircle2 size={18} />{item}</span>
+        ))}
+      </div>
+    </article>
   );
 }
 
@@ -1655,7 +1795,7 @@ function NotFound({ navigate }) {
 function resolvePage(path) {
   if (path === '/') return Home;
   if (path === '/learn') return LearnIndividual;
-  if (path === '/learner-ai') return LearnerAIPlatform;
+  if (path === '/learner-ai') return LearnerLoginPage;
   if (path === course.href) return CoursePage;
   if (path === '/for-business') return Business;
   if (path === '/corporate-ai-training') return CorporateTraining;
