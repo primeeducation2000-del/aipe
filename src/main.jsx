@@ -35,14 +35,29 @@ const siteUrl = 'https://aipe.uk';
 
 const routes = {
   '/': {
-    title: 'AIPE | AI in Plain English',
+    title: 'AIPE | Training, Partnerships and AI Consultancy',
     description:
-      'AIPE helps individuals, employers, businesses and training partners learn AI, apply it at work, automate processes and build practical AI systems.'
+      'Choose the right AIPE route for training and provider partnerships, or AI consultancy, automation and practical AI systems.'
+  },
+  '/ai-consultancy': {
+    title: 'AI Consultancy and Automation | AIPE',
+    description:
+      'AIPE helps individuals learn AI, helps teams adopt it safely, and helps organisations reduce repetitive work with practical AI systems.'
   },
   '/learn': {
-    title: 'AI Training Courses | AIPE',
+    title: 'AI Training UK and Adult Digital Skills | AIPE',
     description:
-      'Explore practical AI training for work, productivity, automation, responsible AI and future AI engineering pathways.'
+      'Explore practical AI training UK, adult digital skills, AI for jobseekers, cyber safety, workplace productivity and learner support.'
+  },
+  '/adult-learning': {
+    title: 'Online Adult Learning, AI and Digital Skills | AIPE',
+    description:
+      'AIPE supports online adult learning, adult digital skills, ESOL digital skills, AI for jobseekers and cybersecurity awareness in plain English.'
+  },
+  '/courses': {
+    title: 'AIPE Courses | AI Training UK, ESOL Digital Skills and Cyber Safety',
+    description:
+      'Practical course outlines for AI training UK, adult digital skills, ESOL digital skills, AI for jobseekers, cybersecurity awareness and workplace AI productivity.'
   },
   '/learner-ai': {
     title: 'Learner Login | AIPE',
@@ -115,9 +130,19 @@ const routes = {
       'Ongoing support, monitoring and improvement for AI workflows, automations and practical AI systems.'
   },
   '/partners': {
-    title: 'AI Training Delivery Partnerships | AIPE',
+    title: 'Training Provider Partner for AI, Digital Skills and Adult Learning | AIPE',
     description:
-      'AIPE is developing partnerships with colleges, skills providers, employers and workforce programmes that need specialist AI delivery.'
+      'AIPE can support colleges, councils, employability providers and funded-training partners with online adult learning, AI, ESOL digital skills and cybersecurity awareness delivery.'
+  },
+  '/request-partnership-pack': {
+    title: 'Start a Partnership Conversation | AIPE',
+    description:
+      'Start a conversation with AIPE about training, provider partnerships, digital inclusion and community delivery.'
+  },
+  '/compliance': {
+    title: 'Compliance and Learner Support | Online Adult Learning | AIPE',
+    description:
+      'AIPE is preparing partner-ready online adult learning processes for safeguarding, Prevent, GDPR, learner support, evidence tracking and responsible AI delivery.'
   },
   '/resources': {
     title: 'AI Resources | AIPE',
@@ -168,6 +193,7 @@ const routes = {
 
 const nav = [
   { label: 'Home', href: '/' },
+  { label: 'AI Consultancy', href: '/ai-consultancy' },
   { label: 'Learn', href: '/learn' },
   { label: 'Business', href: '/for-business' },
   { label: 'Partners', href: '/partners' },
@@ -231,6 +257,97 @@ const courseCategories = [
   ['AI Automation', ['Introduction to AI Automation', 'Workflow Automation', 'n8n Fundamentals']],
   ['AI Agents', ['Introduction to AI Agents', 'Building Practical AI Agents']],
   ['Applied AI', ['AI for Business', 'Responsible AI', 'AI Adoption']]
+];
+
+const adultLearningCards = [
+  {
+    icon: BookOpen,
+    title: 'Practical AI Skills for Work',
+    text: 'AI fundamentals, prompting, productivity, responsible AI, privacy, automation basics and AI agents.'
+  },
+  {
+    icon: Users,
+    title: 'Digital Skills for ESOL Learners',
+    text: 'Email, online forms, digital vocabulary, job search, device confidence and safe AI-supported English practice.'
+  },
+  {
+    icon: BriefcaseBusiness,
+    title: 'AI in Plain English for Jobseekers',
+    text: 'CVs, cover letters, interview practice, LinkedIn, job search confidence and accurate use of AI.'
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Cyber Safety for Everyday Life and Work',
+    text: 'Passwords, phishing, scams, MFA, safe browsing, data privacy and safe use of AI tools.'
+  },
+  {
+    icon: Network,
+    title: 'Introduction to Cybersecurity Careers',
+    text: 'Cyber roles, SOC analyst pathways, networking basics, threats, vulnerabilities and progression routes.'
+  },
+  {
+    icon: Zap,
+    title: 'Workplace AI Productivity',
+    text: 'Meetings, notes, summaries, emails, spreadsheets, reports, workflows, responsible use and human checking.'
+  }
+];
+
+const courseCards = [
+  {
+    title: 'Practical AI Skills for Work',
+    audience: 'Adult learners, employees, jobseekers, career changers and professionals.',
+    topics: ['AI fundamentals', 'Prompting', 'Workplace productivity', 'Responsible AI', 'Checking outputs', 'Privacy', 'Automation basics', 'AI agents'],
+    href: '/courses/practical-ai-skills-for-work'
+  },
+  {
+    title: 'Digital Skills for ESOL Learners',
+    audience: 'ESOL learners, refugees, new arrivals and adults building digital confidence.',
+    topics: ['Email', 'Online forms', 'Mobile and laptop confidence', 'Digital vocabulary', 'Job search', 'Translation support', 'Safe AI for English practice']
+  },
+  {
+    title: 'AI in Plain English for Jobseekers',
+    audience: 'Jobseekers, employability learners, returners and career changers.',
+    topics: ['CVs', 'Cover letters', 'Interview practice', 'Job search', 'LinkedIn', 'Confidence', 'Ethical and accurate AI use']
+  },
+  {
+    title: 'Cyber Safety for Everyday Life and Work',
+    audience: 'Adult learners, employees, community learners and people using online services.',
+    topics: ['Passwords', 'Phishing', 'Scams', 'MFA', 'Safe browsing', 'Data privacy', 'AI tool safety', 'Workplace cyber habits']
+  },
+  {
+    title: 'Introduction to Cybersecurity Careers',
+    audience: 'Learners exploring progression into cybersecurity, IT support or networking.',
+    topics: ['Cyber roles', 'SOC analyst pathway', 'Networking basics', 'Threats and vulnerabilities', 'Progression to Level 2 or Level 3 cybersecurity']
+  },
+  {
+    title: 'Workplace AI Productivity',
+    audience: 'Employees, employers, SMEs and teams improving daily work.',
+    topics: ['Meetings', 'Notes', 'Summaries', 'Emails', 'Spreadsheets', 'Reports', 'Workflows', 'Responsible use', 'Human checking']
+  }
+];
+
+const partnerCapabilities = [
+  'Specialist AI curriculum',
+  'Online digital skills delivery',
+  'Cyber safety and cybersecurity awareness',
+  'ESOL-linked digital confidence',
+  'Learner onboarding and digital access checks',
+  'Attendance, progress and evidence tracking',
+  'Practical project-based learning',
+  'Employer and workplace-focused tasks'
+];
+
+const complianceItems = [
+  ['Safeguarding and Prevent commitment', 'AIPE is developing safeguarding and Prevent-aware delivery processes suitable for partnership discussions with colleges, councils and employability providers.'],
+  ['Equality, diversity and inclusion', 'AIPE aims to make practical AI and digital skills accessible, inclusive and relevant to learners from different backgrounds and confidence levels.'],
+  ['GDPR and learner data protection', 'AIPE can work under appropriate privacy, GDPR and data-processing arrangements when partnering with providers or employers.'],
+  ['Online delivery and attendance tracking', 'Delivery can be supported through Teams, Zoom or Google Meet, with attendance tracking, learner communications, session resources and a clear recordings policy where required.'],
+  ['Learner onboarding and digital access checks', 'Onboarding can include initial assessment, digital access checks, accessibility needs, learner goals and support requirements.'],
+  ['Accessibility and reasonable adjustments', 'AIPE can design learner support around accessibility needs and reasonable adjustments, subject to partner and programme requirements.'],
+  ['Complaints and learner support', 'AIPE can provide clear learner support, escalation and complaints processes for online and partner-delivered provision.'],
+  ['Tutor competence and CPD', 'Tutors should have relevant subject knowledge, delivery experience, CPD records and practical understanding of AI, digital tools and cyber-safe working.'],
+  ['Evidence and progress tracking', 'AIPE can maintain evidence for attendance, learner progress, work samples, completion, feedback and employer or project outcomes.'],
+  ['Responsible AI and cyber-safe delivery', 'AIPE teaches and models safe digital practice, including careful use of AI tools, secure passwords, MFA, approved software and human checking.']
 ];
 
 const solutions = [
@@ -352,7 +469,7 @@ const protectedPages = {
 };
 
 function hrefFor(label) {
-  return label === 'Practical AI Skills for Work' ? course.href : '/learn#catalogue';
+  return label === 'Practical AI Skills for Work' ? course.href : '/courses';
 }
 
 function App() {
@@ -487,6 +604,7 @@ function setStructuredData(path, page) {
 function breadcrumbsFor(path) {
   const labels = {
     learn: 'Learn',
+    'adult-learning': 'Adult Learning',
     courses: 'Courses',
     'practical-ai-skills-for-work': 'Practical AI Skills for Work',
     'for-business': 'For Business',
@@ -496,6 +614,7 @@ function breadcrumbsFor(path) {
     'ai-agents': 'AI Agents',
     'ai-knowledge-rag': 'AI Knowledge / RAG',
     partners: 'Partners',
+    compliance: 'Compliance',
     resources: 'Resources',
     'ai-glossary': 'AI Glossary',
     about: 'About',
@@ -589,6 +708,63 @@ function FooterCol({ title, items, navigate }) {
   return <div><h3>{title}</h3>{items.map((item) => <Link key={item} href={map[item]} navigate={navigate}>{item}</Link>)}</div>;
 }
 
+function HomeGateway({ navigate }) {
+  const gatewayRoutes = [
+    {
+      icon: GraduationCap,
+      label: 'Training & Partnerships',
+      audience: 'Councils, colleges, adult learning services, providers, ESOL learners, jobseekers and career changers.',
+      text: 'Practical AI, digital skills, cyber safety and partnership delivery aligned to provider requirements.',
+      href: '/partners',
+      cta: 'Training & Partnerships'
+    },
+    {
+      icon: Workflow,
+      label: 'AI Consultancy & Automation',
+      audience: 'Employers, SMEs and teams improving work with AI.',
+      text: 'AI training, automation, agents, RAG, workflow design and managed support.',
+      href: '/ai-consultancy',
+      cta: 'AI Consultancy'
+    }
+  ];
+
+  return (
+    <main>
+      <section className="hero gateway-hero">
+        <div className="modern-backdrop" aria-hidden="true">
+          <span className="flow-line line-one" />
+          <span className="flow-line line-two" />
+          <span className="flow-line line-three" />
+          <span className="flow-node node-one" />
+          <span className="flow-node node-two" />
+          <span className="flow-node node-three" />
+          <span className="flow-node node-four" />
+        </div>
+        <div className="container gateway-hero-inner">
+          <div className="gateway-copy">
+            <p className="eyebrow">AIPE - AI in Plain English</p>
+            <h1>Choose how <span className="brand-word"><span>AI</span><span>PE</span></span> can help.</h1>
+          </div>
+          <div className="gateway-route-grid" aria-label="Choose an AIPE route">
+            {gatewayRoutes.map(({ icon: Icon, label, audience, text, href, cta }) => (
+              <Link href={href} navigate={navigate} className="gateway-route-card" key={label}>
+                <span className="gateway-icon"><Icon size={30} /></span>
+                <span className="gateway-card-copy">
+                  <strong>{label}</strong>
+                  <small>{audience}</small>
+                  <em>{text}</em>
+                </span>
+                <span className="gateway-card-cta">{cta}<ArrowRight size={18} /></span>
+              </Link>
+            ))}
+          </div>
+          <p className="gateway-trust-line">Training and partnership delivery can sit under lead provider funding, compliance and quality requirements where required.</p>
+        </div>
+      </section>
+    </main>
+  );
+}
+
 function Home({ navigate }) {
   const [isTrailerOpen, setIsTrailerOpen] = useState(false);
 
@@ -673,6 +849,35 @@ function Home({ navigate }) {
         </div>
       </section>
     </>
+  );
+}
+
+function AdultLearningHome({ navigate }) {
+  return (
+    <section className="section adult-learning-home">
+      <div className="container">
+        <div className="adult-home-head">
+          <div>
+            <p className="eyebrow">Adult Learning & Community Skills</p>
+            <h2>Practical online learning for adults, employers and delivery partners.</h2>
+          </div>
+          <p>AIPE is a UK-based online training organisation delivering practical AI, digital skills, cyber safety and ESOL-linked employability support for adult learners, jobseekers, career changers, employers and training-provider partners.</p>
+        </div>
+        <div className="adult-card-grid">
+          {adultLearningCards.map(({ icon: Icon, title, text }) => (
+            <article className="adult-skill-card" key={title}>
+              <Icon size={24} aria-hidden="true" />
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+        <div className="actions adult-home-actions">
+          <Link href="/partners" navigate={navigate} className="button primary">Discuss a Delivery Partnership <ArrowRight size={18} /></Link>
+          <Link href="/courses" navigate={navigate} className="button secondary bordered">Request a Course Outline</Link>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -830,7 +1035,7 @@ function SectionIntro({ eyebrow, title, text }) {
 }
 
 function Checklist({ items }) {
-  return <ul className="checklist">{items.map((item) => <li key={item}><CheckCircle2 size={18} />{item}</li>)}</ul>;
+  return <ul className="checklist">{items.map((item, index) => <li key={typeof item === 'string' ? item : index}><CheckCircle2 size={18} /><span>{item}</span></li>)}</ul>;
 }
 
 function Learn({ navigate }) {
@@ -1144,25 +1349,522 @@ function InfoBlock({ title, text, icon: Icon }) {
 }
 
 function Partners({ navigate }) {
+  const supportGroups = [
+    'Councils and adult learning services',
+    'Colleges and training providers',
+    'Employability and community organisations',
+    'Employers supporting workforce skills',
+    'ESOL learners, refugees and migrant learners',
+    'Older adults and adults with low digital confidence',
+    'Jobseekers and career changers'
+  ];
+  const deliveryOffer = [
+    'ESOL and English for Work',
+    'Digital Skills for ESOL Learners',
+    'Age-Friendly Digital Confidence and Online Safety',
+    'Digital Inclusion for Refugees and Migrant Learners',
+    'AI Confidence for Jobseekers',
+    'AI for Career Changers',
+    'Cyber Safety for Everyday Life and Work',
+    'Introductory Networking and Cybersecurity pathways',
+    'Digital confidence and employability workshops'
+  ];
+  const formats = [
+    'Online live sessions',
+    'Short workshops',
+    '3 x 2-hour short courses',
+    '2-week intensive cohorts',
+    '6-8 week part-time cohorts',
+    'Specialist modules inside wider funded programmes',
+    'Introductory sessions available at a reduced or accessible rate where appropriate'
+  ];
+  const reasons = [
+    'Adult learner and ESOL experience',
+    'Practical AI and digital skills focus',
+    'Career-change and employability angle',
+    'Digital inclusion experience with older adults, refugees, migrant learners and adults with lower digital confidence',
+    'Flexible online delivery',
+    'Tutor-led support',
+    <>Our delivery team brings experience from education, technology and public-service environments, including work connected to <strong>Google</strong>, <strong>the NHS</strong> and <strong>Pearson</strong>.</>,
+    'Ability to work under lead provider quality, safeguarding and compliance requirements where required'
+  ];
+  const readiness = [
+    'Attendance tracking',
+    'Learner feedback',
+    'Progress reviews',
+    'Work samples',
+    'Portfolio evidence',
+    'Safeguarding and inclusive delivery awareness',
+    'Delivery aligned to partner requirements'
+  ];
+  const partnershipOptions = [
+    'Subcontracted delivery',
+    'Specialist workshops',
+    'Pilot cohort',
+    'Add-on modules inside existing programmes',
+    'Community learning sessions',
+    'Employer-funded training',
+    'Referral partnership'
+  ];
+  const featuredCourses = [
+    ['Digital Skills for ESOL Learners', 'Build everyday digital confidence, online forms, email, vocabulary and safe AI-supported English practice.'],
+    ['Age-Friendly Digital Confidence and Online Safety', 'Support older adults with everyday devices, online services, safer browsing and confidence using digital tools.'],
+    ['Digital Inclusion for Refugees and Migrant Learners', 'Practical digital access, online forms, English for digital life and safe use of AI-supported learning tools.'],
+    ['AI Confidence for Jobseekers and Career Changers', 'Use AI safely and practically for CVs, job search, interview preparation, planning and workplace confidence.'],
+    ['Cyber Safety for Everyday Life and Work', 'Passwords, phishing, scams, MFA, data privacy and safe online habits for learners and staff.']
+  ];
+  const partnershipWhatsAppMessage = 'Hello AIPE, I’d like to start a partnership conversation about training and delivery for my organisation.';
+  const partnershipWhatsAppHref = `https://wa.me/447708910946?text=${encodeURIComponent(partnershipWhatsAppMessage)}`;
+
   return (
     <>
-      <PageHero eyebrow="Delivery partnerships" title="AI Training Delivery Partnerships" text="Add specialist AI delivery to your programme. AIPE is developing partnerships with organisations delivering workforce and funded skills programmes.">
-        <Link href="/contact?intent=partner" navigate={navigate} className="button primary">Discuss a Delivery Partnership</Link>
+      <PageHero eyebrow="Provider partnerships" title="Training & Partnerships" text="AIPE supports councils, colleges, providers and community organisations with practical AI, digital inclusion, ESOL, cyber safety and employability-focused training for adult learners, jobseekers, career changers and digitally excluded communities.">
+        <div className="partner-hero-cta">
+          <div className="actions">
+            <Link href="/request-partnership-pack" navigate={navigate} className="button primary">Start a Partnership Conversation</Link>
+            <a href={partnershipWhatsAppHref} className="button secondary bordered" target="_blank" rel="noreferrer">Message AIPE on WhatsApp</a>
+          </div>
+          <p>Prefer email? Contact <a href="mailto:ai@aipe.uk">ai@aipe.uk</a></p>
+        </div>
       </PageHero>
-      <section className="section"><div className="container two-col">
-        <div><h2>Who this is for</h2><Checklist items={['Skills Bootcamp providers', 'Colleges', 'Independent training providers', 'Employability providers', 'Local programmes and councils', 'Workforce development organisations', 'Relevant apprenticeship providers', 'Employers']} /></div>
-        <div><h2>How AIPE can support</h2><Checklist items={['Specialist AI curriculum', 'Practical AI workshops', 'Workplace AI training', 'Automation training', 'AI agent training', 'Employer-focused projects', 'Curriculum design', 'Trainer delivery', 'Contextualised AI content']} /></div>
-      </div></section>
-      <section className="section tinted"><div className="container narrow"><h2>Careful and accurate claims</h2><p>This page does not claim government contracts, accreditation, awarding-body approval, Skills Bootcamp funding, apprenticeship-provider status or any formal approval. Those details can be added later only when evidence is available.</p></div></section>
+      <section className="section partner-provider-section">
+        <div className="container split">
+          <div>
+            <p className="eyebrow">Who we support</p>
+            <h2>Practical delivery for providers, communities and employers.</h2>
+            <p>AIPE works with organisations that need accessible training for adults building confidence with AI, digital tools, English for work, online safety and career progression.</p>
+            <p className="careful-claim">Delivery can sit inside a wider programme, pilot cohort, community learning offer or employer-funded skills plan.</p>
+            <p className="credibility-note">AIPE is a member of the National Digital Inclusion Network.</p>
+          </div>
+          <div className="provider-capability-grid">
+            {supportGroups.map((item) => <span key={item}><CheckCircle2 size={18} />{item}</span>)}
+          </div>
+        </div>
+      </section>
+      <section className="section">
+        <div className="container two-col partnership-panel-grid">
+          <div className="partnership-panel"><h2>What AIPE can deliver</h2><Checklist items={deliveryOffer} /></div>
+          <div className="partnership-panel"><h2>Delivery formats</h2><Checklist items={formats} /></div>
+        </div>
+      </section>
+      <section className="section tinted">
+        <div className="container two-col partnership-panel-grid">
+          <div className="partnership-panel"><h2>Why partner with AIPE</h2><Checklist items={reasons} /></div>
+          <div className="partnership-panel"><h2>Provider readiness</h2><Checklist items={readiness} /></div>
+        </div>
+      </section>
+      <section className="section">
+        <div className="container">
+          <SectionIntro eyebrow="Partnership options" title="Flexible routes for different programmes." text="AIPE can support a small pilot, a specialist module, a community learning session or a wider provider partnership." />
+          <div className="provider-capability-grid partnership-option-grid">
+            {partnershipOptions.map((item) => <span key={item}><CheckCircle2 size={18} />{item}</span>)}
+          </div>
+        </div>
+      </section>
+      <section className="section tinted">
+        <div className="container">
+          <SectionIntro eyebrow="Featured course cards" title="Practical starting points for adult learners." text="These course areas can be delivered as standalone workshops, short cohorts or specialist modules inside a wider programme." />
+          <div className="course-catalogue-grid">
+            {featuredCourses.map(([title, text]) => (
+              <article className="course-catalogue-card partnership-course-card" key={title}>
+                <span className="course-type">Partner course</span>
+                <h2>{title}</h2>
+                <p>{text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="lead-band partner-final-band">
+        <div className="container lead-band-inner">
+          <div>
+            <p className="eyebrow">Want to explore a partnership?</p>
+            <h2>Start with a conversation.</h2>
+            <p>Tell us what you are exploring, even if it is still early. Start with the learner group, programme idea or problem you are trying to solve.</p>
+            <p className="partner-final-note">If useful, AIPE can then follow up with a capability statement, course sheets, tutor information or a short introductory call.</p>
+          </div>
+          <div className="actions">
+            <Link href="/request-partnership-pack" navigate={navigate} className="button primary">Start a Partnership Conversation</Link>
+            <a href="mailto:ai@aipe.uk" className="button secondary bordered">Email ai@aipe.uk</a>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function RequestPartnershipPack() {
+  const organisationTypes = [
+    'Council / local authority',
+    'College',
+    'Adult learning service',
+    'Training provider',
+    'Employability organisation',
+    'Charity / community organisation',
+    'Employer',
+    'Digital inclusion partner',
+    'Other'
+  ];
+  const interestOptions = [
+    'ESOL / English for Work',
+    'Digital Skills for ESOL Learners',
+    'Age-Friendly Digital Confidence',
+    'Refugee/Migrant Digital Inclusion',
+    'AI for Jobseekers',
+    'Cyber Safety / Online Safety',
+    'Career-change tech pathways',
+    'Employer/team training',
+    'Not sure yet'
+  ];
+  const packIncludes = [
+    'Capability statement',
+    'Course sheets',
+    'Tutor profile',
+    'Compliance and learner support summary',
+    'Delivery formats',
+    'Partnership options',
+    'Pricing/options if relevant',
+    'Introductory call option'
+  ];
+  const audiences = [
+    { label: 'Councils and adult learning services', icon: Building2 },
+    { label: 'Colleges and training providers', icon: GraduationCap },
+    { label: 'Employability providers', icon: BriefcaseBusiness },
+    { label: 'Community organisations and charities', icon: Users },
+    { label: 'Employers and workforce development teams', icon: Library },
+    { label: 'Digital inclusion partners', icon: Network }
+  ];
+  const [form, setForm] = useState({
+    name: '',
+    organisation: '',
+    role: '',
+    email: '',
+    phone: '',
+    organisationType: '',
+    interests: [],
+    message: ''
+  });
+  const [submitState, setSubmitState] = useState({ status: 'idle', message: '' });
+
+  function updateField(field, value) {
+    setForm((current) => ({ ...current, [field]: value }));
+    if (submitState.status !== 'idle') setSubmitState({ status: 'idle', message: '' });
+  }
+
+  function toggleInterest(interest) {
+    setForm((current) => ({
+      ...current,
+      interests: current.interests.includes(interest)
+        ? current.interests.filter((item) => item !== interest)
+        : [...current.interests, interest]
+    }));
+  }
+
+  function buildPartnershipEmailBody() {
+    return [
+      'Hello AIPE,',
+      '',
+      'I would like to start a partnership conversation with AIPE.',
+      '',
+      `Name: ${form.name}`,
+      `Organisation: ${form.organisation}`,
+      `Role/job title: ${form.role}`,
+      `Email: ${form.email}`,
+      `Phone: ${form.phone || 'Not provided'}`,
+      `Organisation type: ${form.organisationType || 'Not selected'}`,
+      `Areas of interest: ${form.interests.length ? form.interests.join(', ') : 'Not selected'}`,
+      '',
+      'Message / what I am looking for:',
+      form.message || 'Not provided'
+    ].join('\n');
+  }
+
+  function partnershipMailtoHref() {
+    return `mailto:ai@aipe.uk?subject=${encodeURIComponent('Start a Partnership Conversation')}&body=${encodeURIComponent(buildPartnershipEmailBody())}`;
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setSubmitState({ status: 'sending', message: 'Sending your enquiry...' });
+    try {
+      const response = await fetch('/api/partnership', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form)
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.message || 'The enquiry could not be sent automatically.');
+      setSubmitState({ status: 'sent', message: 'Thank you. AIPE has received your enquiry and will usually respond within 1-2 working days.' });
+    } catch (error) {
+      setSubmitState({
+        status: 'error',
+        message: 'The Google Sheet connection is not available in this local preview yet. You can still open a pre-filled email draft below.'
+      });
+    }
+  }
+
+  return (
+    <>
+      <PageHero eyebrow="Partnership conversation" title="Start a Partnership Conversation" text="Tell AIPE a little about your organisation, learner group or programme idea. We will respond personally and, where useful, share a capability statement, course sheets, tutor information or relevant partnership options." />
+      <section className="section request-pack-section">
+        <div className="container request-pack-layout">
+          <div className="request-pack-copy">
+            <SectionIntro eyebrow="For provider conversations" title="Clear information for partnership review." text="This page is for organisations exploring practical AI, digital inclusion, ESOL, cyber safety and employability-focused delivery with AIPE." />
+            <div className="request-card-grid">
+              {audiences.map(({ label, icon: AudienceIcon }) => (
+                <article className="request-mini-card" key={label}>
+                  <AudienceIcon size={20} aria-hidden="true" />
+                  <span>{label}</span>
+                </article>
+              ))}
+            </div>
+            <article className="partnership-panel request-pack-includes">
+              <h2>What AIPE can share where useful</h2>
+              <Checklist items={packIncludes} />
+            </article>
+            <p className="request-contact-line">Prefer email? Contact <a href="mailto:ai@aipe.uk">ai@aipe.uk</a></p>
+          </div>
+
+          <form className="request-pack-form" onSubmit={handleSubmit}>
+            <div>
+              <p className="eyebrow">Request form</p>
+              <h2>Tell AIPE what you are exploring.</h2>
+              <p>This short form helps AIPE understand the conversation before replying personally.</p>
+            </div>
+            <div className="request-form-grid">
+              <label>Name<input required value={form.name} onChange={(event) => updateField('name', event.target.value)} /></label>
+              <label>Organisation<input required value={form.organisation} onChange={(event) => updateField('organisation', event.target.value)} /></label>
+              <label>Role/job title<input value={form.role} onChange={(event) => updateField('role', event.target.value)} /></label>
+              <label>Email<input required type="email" value={form.email} onChange={(event) => updateField('email', event.target.value)} /></label>
+              <label>Phone optional<input value={form.phone} onChange={(event) => updateField('phone', event.target.value)} /></label>
+              <label>Organisation type<select value={form.organisationType} onChange={(event) => updateField('organisationType', event.target.value)}><option value="">Select one</option>{organisationTypes.map((type) => <option key={type} value={type}>{type}</option>)}</select></label>
+            </div>
+            <fieldset>
+              <legend>Area of interest</legend>
+              <div className="interest-grid">
+                {interestOptions.map((interest) => (
+                  <label key={interest}>
+                    <input type="checkbox" checked={form.interests.includes(interest)} onChange={() => toggleInterest(interest)} />
+                    <span>{interest}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            <label>Message / what you are looking for<textarea rows="5" value={form.message} onChange={(event) => updateField('message', event.target.value)} /></label>
+            <p className="privacy-note">AIPE will use your details only to respond to your enquiry. We usually respond within 1-2 working days.</p>
+            {submitState.message && <p className={`form-status ${submitState.status}`}>{submitState.message}</p>}
+            {submitState.status === 'error' && <a href={partnershipMailtoHref()} className="button secondary bordered">Open Email Draft</a>}
+            <button className="button primary" type="submit" disabled={submitState.status === 'sending'}>{submitState.status === 'sending' ? 'Sending...' : 'Start a Partnership Conversation'}</button>
+          </form>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function AdultLearning({ navigate }) {
+  const learners = ['Adult learners', 'Jobseekers', 'Career changers', 'ESOL learners', 'Refugees and new arrivals', 'People on benefits', 'Economically disadvantaged learners', 'Employees needing digital upskilling'];
+  const progression = ['Cybersecurity', 'Coding', 'IT support', 'Networking', 'Workplace automation', 'AI productivity roles'];
+
+  return (
+    <>
+      <PageHero eyebrow="Online adult learning" title="Adult AI, digital skills and cyber safety." text="AIPE helps adults build useful digital confidence in plain English, with learning that connects to work, employability, everyday online life and future progression.">
+        <div className="actions">
+          <Link href="/courses" navigate={navigate} className="button primary">View Courses <ArrowRight size={18} /></Link>
+          <Link href="/partners" navigate={navigate} className="button secondary">Delivery Partnerships</Link>
+        </div>
+      </PageHero>
+      <section className="section adult-offer-section">
+        <div className="container">
+          <SectionIntro eyebrow="Adult learning offer" title="Clear, practical routes into digital confidence." text="The page is intentionally simple: it shows what learners can study, who it supports and where learners can progress next." />
+          <div className="adult-offer-grid">
+            <InfoCard icon={Sparkles} title="AI skills for adult learners" text="Plain-English AI fundamentals, prompting, productivity, responsible use and confidence with everyday tools." />
+            <InfoCard icon={Users} title="Digital skills for ESOL learners" text="Digital vocabulary, online forms, email, job search, device confidence and safe AI-supported English practice." />
+            <InfoCard icon={ShieldCheck} title="Cyber safety for life and work" text="Passwords, phishing, scams, MFA, safe browsing, data privacy and safe habits for online platforms." />
+            <InfoCard icon={BriefcaseBusiness} title="Employability with AI tools" text="CVs, cover letters, interview practice, job search, LinkedIn and responsible checking of AI outputs." />
+            <InfoCard icon={BookOpen} title="Returning to study" text="Supportive workshop-style learning for people who need confidence before moving into technical pathways." />
+            <InfoCard icon={Workflow} title="Progression pathways" text="A foundation route towards cybersecurity, coding, IT support, networking and workplace automation." />
+          </div>
+        </div>
+      </section>
+      <section className="section tinted">
+        <div className="container two-col">
+          <div>
+            <h2>Target learners</h2>
+            <Checklist items={learners} />
+          </div>
+          <div>
+            <h2>Progression can lead towards</h2>
+            <Checklist items={progression} />
+          </div>
+        </div>
+      </section>
+      <LeadBand navigate={navigate} />
+    </>
+  );
+}
+
+function Courses({ navigate }) {
+  return (
+    <>
+      <PageHero eyebrow="Courses" title="Focused AI, digital skills and cyber safety courses." text="AIPE’s course catalogue is intentionally practical and credible: a focused set of adult learning and workforce programmes that can be delivered online or in partnership where required.">
+        <Link href="/contact?intent=learner" navigate={navigate} className="button primary">Request a Course Outline</Link>
+      </PageHero>
+      <section className="section">
+        <div className="container course-catalogue-grid">
+          {courseCards.map((item) => (
+            <article className="course-catalogue-card" key={item.title}>
+              <div>
+                <span className="course-type">AIPE course</span>
+                <h2>{item.title}</h2>
+                <p>{item.audience}</p>
+              </div>
+              <div className="compact-tags">
+                {item.topics.map((topic) => <span key={topic}>{topic}</span>)}
+              </div>
+              {item.href ? (
+                <Link href={item.href} navigate={navigate} className="card-link">View full course <ArrowRight size={16} /></Link>
+              ) : (
+                <Link href="/contact?intent=learner" navigate={navigate} className="card-link">Request outline <ArrowRight size={16} /></Link>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="section tinted">
+        <div className="container narrow">
+          <h2>Qualifications and partner delivery</h2>
+          <p>Can be aligned to accredited qualifications or delivered alongside a lead provider’s approved qualification route where required.</p>
+          <p>AIPE does not currently claim to be an awarding body, approved centre, funded provider or regulated qualification provider.</p>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function Compliance({ navigate }) {
+  return (
+    <>
+      <PageHero eyebrow="Compliance & learner support" title="Preparing a partner-ready delivery model." text="AIPE is developing online delivery and learner support processes suitable for discussions with colleges, councils, employers, employability providers and funded-training partners.">
+        <Link href="/partners" navigate={navigate} className="button primary">Discuss Partnership Delivery</Link>
+      </PageHero>
+      <section className="section">
+        <div className="container compliance-grid">
+          {complianceItems.map(([title, text]) => (
+            <article className="compliance-card" key={title}>
+              <ShieldCheck size={22} aria-hidden="true" />
+              <h2>{title}</h2>
+              <p>{text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="section tinted">
+        <div className="container narrow disclaimer-panel">
+          <h2>Current status</h2>
+          <p>AIPE does not currently claim to be an Ofsted-regulated provider, awarding body, approved centre or funded provider. Where funded or accredited provision is required, AIPE works under the relevant lead provider, awarding organisation or funder requirements.</p>
+        </div>
+      </section>
     </>
   );
 }
 
 function Resources({ navigate }) {
+  const learningSections = [
+    {
+      number: '1',
+      title: 'Start with confidence',
+      text: 'Plain-English AI foundations for adults, ESOL learners, jobseekers and teams who want a calm starting point.',
+      items: ['What AI means in everyday language', 'Where people already meet AI online', 'What AI can help with', 'What AI cannot reliably do'],
+      icon: Lightbulb
+    },
+    {
+      number: '2',
+      title: 'Use AI for real tasks',
+      text: 'Practical examples for writing, planning, research, job search, interviews, learning support and workplace communication.',
+      items: ['Write clearer prompts', 'Draft and improve documents', 'Prepare for interviews or meetings', 'Use AI without losing your own voice'],
+      icon: Sparkles
+    },
+    {
+      number: '3',
+      title: 'Stay safe and critical',
+      text: 'Guidance for checking AI answers, protecting personal data and recognising online risks such as scams, bias and deepfakes.',
+      items: ['Check accuracy before using outputs', 'Know what not to share', 'Recognise scams and misleading content', 'Understand bias and fairness'],
+      icon: ShieldCheck
+    },
+    {
+      number: '4',
+      title: 'Build skills for work and progression',
+      text: 'Resources that connect AI and digital skills to employability, career change, provider delivery and workplace confidence.',
+      items: ['Jobseekers and career changers', 'Provider and community learning', 'Team training and adoption', 'Useful next steps after basic confidence'],
+      icon: BriefcaseBusiness
+    }
+  ];
+  const [activeSection, setActiveSection] = useState(0);
+  const selectedSection = learningSections[activeSection];
+  const SelectedIcon = selectedSection.icon;
+
   return (
     <>
-      <PageHero eyebrow="Resources" title="AI explained without the fog." text="A content hub for plain-English AI guidance, built for search visibility and genuine usefulness." />
-      <section className="section"><div className="container category-grid">{resources.map(([title, text]) => <article className="card" key={title}><h2>{title}</h2><p>{text}</p>{title === 'Glossary' && <Link href="/resources/ai-glossary" navigate={navigate} className="card-link">Open glossary <ArrowRight size={16} /></Link>}</article>)}</div></section>
+      <section className="resource-gateway-hero">
+        <div className="container resource-gateway-top">
+          <div>
+            <p className="eyebrow">Resources</p>
+            <h1>Practical AI resources, in plain English.</h1>
+            <p>Use this hub to explore AI confidence, digital inclusion, online safety and practical work skills in a way that feels clear, human and useful.</p>
+          </div>
+          <div className="resource-gateway-mark">
+            <Lightbulb size={28} aria-hidden="true" />
+            <span>AIPE Learning</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="resource-learning-section">
+        <div className="container resource-learning-layout">
+          <aside className="resource-section-menu" aria-label="Resources sections">
+            <h2>Explore resources</h2>
+            <ol>
+              {learningSections.map((section, index) => (
+                <li key={section.title}>
+                  <button
+                    type="button"
+                    className={activeSection === index ? 'active' : ''}
+                    aria-current={activeSection === index ? 'page' : undefined}
+                    onClick={() => setActiveSection(index)}
+                  >
+                    <span>{section.number}</span>
+                    {section.title}
+                  </button>
+                </li>
+              ))}
+              <li><Link href="/resources/ai-glossary" navigate={navigate}>AI glossary</Link></li>
+            </ol>
+          </aside>
+
+          <div className="resource-learning-main">
+            <div className="resource-active-kicker">
+              <span>{selectedSection.number}</span>
+              <SelectedIcon size={22} aria-hidden="true" />
+              <p className="eyebrow">AIPE resource hub</p>
+            </div>
+            <h2>{selectedSection.title}</h2>
+            <p className="lead">{selectedSection.text}</p>
+            <p>This resource can help you:</p>
+            <ul className="resource-learning-bullets">
+              {selectedSection.items.map((item) => <li key={item}>{item}</li>)}
+            </ul>
+            <p className="resource-learning-note">Choose another topic from the menu to change this panel, or open the glossary for quick definitions.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="resource-next-band">
+        <div className="container">
+          <span>Useful next step</span>
+          <Link href="/resources/ai-glossary" navigate={navigate}>Open the AI glossary <ArrowRight size={18} /></Link>
+        </div>
+      </section>
     </>
   );
 }
@@ -1192,16 +1894,135 @@ function About() {
   );
 }
 
-function Contact() {
+function Contact({ navigate }) {
+  const [contactForm, setContactForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+  const [contactSubmitState, setContactSubmitState] = useState({ status: 'idle', message: '' });
+  const contactRoutes = [
+    {
+      icon: Building2,
+      title: 'Training & partnerships',
+      text: 'For councils, colleges, providers, community organisations, employers and digital inclusion partners.',
+      href: '/request-partnership-pack',
+      action: 'Start a partnership conversation'
+    },
+    {
+      icon: BriefcaseBusiness,
+      title: 'AI consultancy & automation',
+      text: 'For employers and teams exploring AI training, automation, agents, RAG, workflows or managed support.',
+      href: '/ai-consultancy',
+      action: 'Explore consultancy'
+    },
+    {
+      icon: GraduationCap,
+      title: 'Learner enquiries',
+      text: 'For adult learners, jobseekers, career changers and people interested in practical AI or digital skills.',
+      href: '/learn',
+      action: 'Explore learning'
+    }
+  ];
+  const whatsappMessage = 'Hello AIPE, I would like to make an enquiry.';
+  const whatsappHref = `https://wa.me/447708910946?text=${encodeURIComponent(whatsappMessage)}`;
+  const contactEmailBody = [
+    'Hello AIPE,',
+    '',
+    'I would like to make an enquiry.',
+    '',
+    `Name: ${contactForm.name}`,
+    `Email: ${contactForm.email}`,
+    `Phone: ${contactForm.phone || 'Not provided'}`,
+    '',
+    'Message:',
+    contactForm.message || 'Not provided'
+  ].join('\n');
+  const contactMailtoHref = `mailto:ai@aipe.uk?subject=${encodeURIComponent('AIPE enquiry')}&body=${encodeURIComponent(contactEmailBody)}`;
+
+  function updateContactField(field, value) {
+    setContactForm((current) => ({ ...current, [field]: value }));
+    if (contactSubmitState.status !== 'idle') setContactSubmitState({ status: 'idle', message: '' });
+  }
+
+  async function handleContactSubmit(event) {
+    event.preventDefault();
+    setContactSubmitState({ status: 'sending', message: 'Sending your enquiry...' });
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(contactForm)
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.message || 'The enquiry could not be sent automatically.');
+      setContactSubmitState({ status: 'sent', message: 'Thank you. AIPE has received your enquiry and will usually respond within 1-2 working days.' });
+      setContactForm({ name: '', email: '', phone: '', message: '' });
+    } catch (error) {
+      setContactSubmitState({
+        status: 'error',
+        message: 'The Google Sheet connection is not available in this local preview yet. You can still open a pre-filled email draft below.'
+      });
+    }
+  }
+
   return (
     <>
-      <PageHero eyebrow="Contact" title="Tell AIPE what you need." text="Choose the route closest to your intent so the enquiry captures the right details from the start." />
-      <section className="section"><div className="container form-grid">
-        <LeadForm type="learner" title="Explore Training" fields={['Name', 'Email', 'Course', 'Employment status', 'Preferred delivery', 'Message']} />
-        <LeadForm type="employer" title="Request an AI Training Plan" fields={['Organisation', 'Contact name', 'Email', 'Team size', 'Sector', 'Training needs', 'Current AI usage', 'Preferred delivery', 'Message']} />
-        <LeadForm type="project" title="Discuss an AI Project" fields={['Organisation', 'Contact name', 'Email', 'Problem or process', 'Tools currently used', 'Approximate team size', 'Desired outcome', 'Message']} />
-        <LeadForm type="partner" title="Discuss a Delivery Partnership" fields={['Organisation', 'Organisation type', 'Contact name', 'Email', 'Programme', 'Location', 'Learner numbers if known', 'Required AI delivery', 'Message']} />
-      </div></section>
+      <PageHero eyebrow="Contact" title="Start the right conversation with AIPE." text="Whether you are exploring learner support, provider partnerships or AI consultancy, choose the route that best matches your enquiry.">
+        <form className="contact-hero-form" onSubmit={handleContactSubmit}>
+          <p className="eyebrow">Company enquiry</p>
+          <label>Name<input required value={contactForm.name} onChange={(event) => updateContactField('name', event.target.value)} /></label>
+          <label>Email<input required type="email" value={contactForm.email} onChange={(event) => updateContactField('email', event.target.value)} /></label>
+          <label>Phone<input value={contactForm.phone} onChange={(event) => updateContactField('phone', event.target.value)} /></label>
+          <label>Message<textarea required rows="3" value={contactForm.message} onChange={(event) => updateContactField('message', event.target.value)} /></label>
+          {contactSubmitState.message && <p className={`form-status ${contactSubmitState.status}`}>{contactSubmitState.message}</p>}
+          {contactSubmitState.status === 'error' && <a className="button secondary bordered" href={contactMailtoHref}>Open Email Draft</a>}
+          <button className="button primary" type="submit" disabled={contactSubmitState.status === 'sending'}>{contactSubmitState.status === 'sending' ? 'Sending...' : 'Send Enquiry'}</button>
+        </form>
+      </PageHero>
+      <section className="section contact-section">
+        <div className="container contact-layout">
+          <aside className="contact-panel">
+            <p className="eyebrow">Contact AIPE</p>
+            <h2>Speak to us directly.</h2>
+            <p>For general enquiries, partnership conversations or AI consultancy questions, email AIPE and we will reply personally.</p>
+            <div className="contact-methods">
+              <a href="mailto:ai@aipe.uk">
+                <Mail size={22} aria-hidden="true" />
+                <span>
+                  <strong>Email</strong>
+                  ai@aipe.uk
+                </span>
+              </a>
+              <a href={whatsappHref} target="_blank" rel="noreferrer">
+                <MessageIcon size={22} aria-hidden="true" />
+                <span>
+                  <strong>WhatsApp</strong>
+                  +44 7708 910946
+                </span>
+              </a>
+            </div>
+            <p className="contact-note">AIPE usually responds within 1-2 working days. Please avoid sending sensitive personal data until an appropriate arrangement is in place.</p>
+          </aside>
+
+          <div className="contact-route-area">
+            <SectionIntro eyebrow="Choose a route" title="Help us understand what you need." text="The quickest way to reach the right conversation is to start with the route closest to your situation." />
+            <div className="contact-route-grid">
+              {contactRoutes.map(({ icon: Icon, title, text, href, action }) => (
+                <article className="contact-route-card" key={title}>
+                  <Icon size={24} aria-hidden="true" />
+                  <div>
+                    <h2>{title}</h2>
+                    <p>{text}</p>
+                    <Link href={href} navigate={navigate} className="card-link">{action} <ArrowRight size={16} /></Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
@@ -1779,7 +2600,7 @@ function InfoCard({ icon: Icon, title, text }) {
 }
 
 function PageHero({ eyebrow, title, text, children }) {
-  return <section className="page-hero"><div className="container narrow"><Breadcrumbs /><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p className="lead">{text}</p>{children}</div></section>;
+  return <section className="page-hero"><div className="container page-hero-inner"><Breadcrumbs /><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p className="lead">{text}</p>{children}</div></section>;
 }
 
 function Breadcrumbs() {
@@ -1793,14 +2614,19 @@ function NotFound({ navigate }) {
 }
 
 function resolvePage(path) {
-  if (path === '/') return Home;
+  if (path === '/') return HomeGateway;
+  if (path === '/ai-consultancy') return Home;
   if (path === '/learn') return LearnIndividual;
+  if (path === '/adult-learning') return AdultLearning;
+  if (path === '/courses') return Courses;
   if (path === '/learner-ai') return LearnerLoginPage;
   if (path === course.href) return CoursePage;
   if (path === '/for-business') return Business;
   if (path === '/corporate-ai-training') return CorporateTraining;
   if (path === '/ai-solutions') return SolutionsHub;
   if (path === '/partners') return Partners;
+  if (path === '/request-partnership-pack') return RequestPartnershipPack;
+  if (path === '/compliance') return Compliance;
   if (path === '/resources') return Resources;
   if (path === '/resources/ai-glossary') return Glossary;
   if (path === '/about') return About;
