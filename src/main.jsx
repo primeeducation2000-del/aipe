@@ -2134,7 +2134,10 @@ function LearnerLoginPage({ navigate }) {
     setLearnerLoginState({ status: 'sending', message: 'Checking learner access...' });
 
     try {
-      const response = await fetch('/api/learner-access', {
+      const learnerAccessEndpoint = ['127.0.0.1', 'localhost'].includes(window.location.hostname)
+        ? 'https://aipe.uk/api/learner-access'
+        : '/api/learner-access';
+      const response = await fetch(learnerAccessEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(learnerLogin)
