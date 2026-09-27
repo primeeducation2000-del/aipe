@@ -3484,6 +3484,36 @@ button, input, textarea { font: inherit; }
   color: #7a4a00;
 }
 
+.form-success-panel {
+  display: grid;
+  align-content: center;
+  min-height: 360px;
+  padding: 1.25rem;
+  border: 1px solid rgba(23,99,63,.14);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(23,99,63,.12), transparent 34%),
+    linear-gradient(135deg, #f4fff8 0%, #fff 72%);
+  color: #17633f;
+}
+
+.form-success-panel.compact {
+  min-height: 260px;
+}
+
+.form-success-panel h2 {
+  margin: .45rem 0 .55rem;
+  color: #16232b;
+  font-size: clamp(1.55rem, 2.4vw, 2.15rem);
+  line-height: 1.08;
+}
+
+.form-success-panel p:not(.eyebrow) {
+  margin: 0;
+  color: #35504a;
+  line-height: 1.55;
+}
+
 .course-type {
   display: inline-flex;
   width: max-content;

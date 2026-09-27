@@ -1626,35 +1626,45 @@ function RequestPartnershipPack() {
           </div>
 
           <form className="request-pack-form" onSubmit={handleSubmit}>
-            <div>
-              <p className="eyebrow">Request form</p>
-              <h2>Tell AIPE what you are exploring.</h2>
-              <p>This short form helps AIPE understand the conversation before replying personally.</p>
-            </div>
-            <div className="request-form-grid">
-              <label>Name<input required value={form.name} onChange={(event) => updateField('name', event.target.value)} /></label>
-              <label>Organisation<input required value={form.organisation} onChange={(event) => updateField('organisation', event.target.value)} /></label>
-              <label>Role/job title<input value={form.role} onChange={(event) => updateField('role', event.target.value)} /></label>
-              <label>Email<input required type="email" value={form.email} onChange={(event) => updateField('email', event.target.value)} /></label>
-              <label>Phone optional<input value={form.phone} onChange={(event) => updateField('phone', event.target.value)} /></label>
-              <label>Organisation type<select value={form.organisationType} onChange={(event) => updateField('organisationType', event.target.value)}><option value="">Select one</option>{organisationTypes.map((type) => <option key={type} value={type}>{type}</option>)}</select></label>
-            </div>
-            <fieldset>
-              <legend>Area of interest</legend>
-              <div className="interest-grid">
-                {interestOptions.map((interest) => (
-                  <label key={interest}>
-                    <input type="checkbox" checked={form.interests.includes(interest)} onChange={() => toggleInterest(interest)} />
-                    <span>{interest}</span>
-                  </label>
-                ))}
+            {submitState.status === 'sent' ? (
+              <div className="form-success-panel">
+                <p className="eyebrow">Request received</p>
+                <h2>Thank you. AIPE has received your enquiry.</h2>
+                <p>We will usually respond within 1-2 working days.</p>
               </div>
-            </fieldset>
-            <label>Message / what you are looking for<textarea rows="5" value={form.message} onChange={(event) => updateField('message', event.target.value)} /></label>
-            <p className="privacy-note">AIPE will use your details only to respond to your enquiry. We usually respond within 1-2 working days.</p>
-            {submitState.message && <p className={`form-status ${submitState.status}`}>{submitState.message}</p>}
-            {submitState.status === 'error' && <a href={partnershipMailtoHref()} className="button secondary bordered">Open Email Draft</a>}
-            <button className="button primary" type="submit" disabled={submitState.status === 'sending'}>{submitState.status === 'sending' ? 'Sending...' : 'Start a Partnership Conversation'}</button>
+            ) : (
+              <>
+                <div>
+                  <p className="eyebrow">Request form</p>
+                  <h2>Tell AIPE what you are exploring.</h2>
+                  <p>This short form helps AIPE understand the conversation before replying personally.</p>
+                </div>
+                <div className="request-form-grid">
+                  <label>Name<input required value={form.name} onChange={(event) => updateField('name', event.target.value)} /></label>
+                  <label>Organisation<input required value={form.organisation} onChange={(event) => updateField('organisation', event.target.value)} /></label>
+                  <label>Role/job title<input value={form.role} onChange={(event) => updateField('role', event.target.value)} /></label>
+                  <label>Email<input required type="email" value={form.email} onChange={(event) => updateField('email', event.target.value)} /></label>
+                  <label>Phone optional<input value={form.phone} onChange={(event) => updateField('phone', event.target.value)} /></label>
+                  <label>Organisation type<select value={form.organisationType} onChange={(event) => updateField('organisationType', event.target.value)}><option value="">Select one</option>{organisationTypes.map((type) => <option key={type} value={type}>{type}</option>)}</select></label>
+                </div>
+                <fieldset>
+                  <legend>Area of interest</legend>
+                  <div className="interest-grid">
+                    {interestOptions.map((interest) => (
+                      <label key={interest}>
+                        <input type="checkbox" checked={form.interests.includes(interest)} onChange={() => toggleInterest(interest)} />
+                        <span>{interest}</span>
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+                <label>Message / what you are looking for<textarea rows="5" value={form.message} onChange={(event) => updateField('message', event.target.value)} /></label>
+                <p className="privacy-note">AIPE will use your details only to respond to your enquiry. We usually respond within 1-2 working days.</p>
+                {submitState.message && <p className={`form-status ${submitState.status}`}>{submitState.message}</p>}
+                {submitState.status === 'error' && <a href={partnershipMailtoHref()} className="button secondary bordered">Open Email Draft</a>}
+                <button className="button primary" type="submit" disabled={submitState.status === 'sending'}>{submitState.status === 'sending' ? 'Sending...' : 'Start a Partnership Conversation'}</button>
+              </>
+            )}
           </form>
         </div>
       </section>
@@ -1971,14 +1981,24 @@ function Contact({ navigate }) {
     <>
       <PageHero eyebrow="Contact" title="Start the right conversation with AIPE." text="Whether you are exploring learner support, provider partnerships or AI consultancy, choose the route that best matches your enquiry.">
         <form className="contact-hero-form" onSubmit={handleContactSubmit}>
-          <p className="eyebrow">Company enquiry</p>
-          <label>Name<input required value={contactForm.name} onChange={(event) => updateContactField('name', event.target.value)} /></label>
-          <label>Email<input required type="email" value={contactForm.email} onChange={(event) => updateContactField('email', event.target.value)} /></label>
-          <label>Phone<input value={contactForm.phone} onChange={(event) => updateContactField('phone', event.target.value)} /></label>
-          <label>Message<textarea required rows="3" value={contactForm.message} onChange={(event) => updateContactField('message', event.target.value)} /></label>
-          {contactSubmitState.message && <p className={`form-status ${contactSubmitState.status}`}>{contactSubmitState.message}</p>}
-          {contactSubmitState.status === 'error' && <a className="button secondary bordered" href={contactMailtoHref}>Open Email Draft</a>}
-          <button className="button primary" type="submit" disabled={contactSubmitState.status === 'sending'}>{contactSubmitState.status === 'sending' ? 'Sending...' : 'Send Enquiry'}</button>
+          {contactSubmitState.status === 'sent' ? (
+            <div className="form-success-panel compact">
+              <p className="eyebrow">Enquiry received</p>
+              <h2>Thank you. AIPE has received your enquiry.</h2>
+              <p>We will usually respond within 1-2 working days.</p>
+            </div>
+          ) : (
+            <>
+              <p className="eyebrow">Company enquiry</p>
+              <label>Name<input required value={contactForm.name} onChange={(event) => updateContactField('name', event.target.value)} /></label>
+              <label>Email<input required type="email" value={contactForm.email} onChange={(event) => updateContactField('email', event.target.value)} /></label>
+              <label>Phone<input value={contactForm.phone} onChange={(event) => updateContactField('phone', event.target.value)} /></label>
+              <label>Message<textarea required rows="3" value={contactForm.message} onChange={(event) => updateContactField('message', event.target.value)} /></label>
+              {contactSubmitState.message && <p className={`form-status ${contactSubmitState.status}`}>{contactSubmitState.message}</p>}
+              {contactSubmitState.status === 'error' && <a className="button secondary bordered" href={contactMailtoHref}>Open Email Draft</a>}
+              <button className="button primary" type="submit" disabled={contactSubmitState.status === 'sending'}>{contactSubmitState.status === 'sending' ? 'Sending...' : 'Send Enquiry'}</button>
+            </>
+          )}
         </form>
       </PageHero>
       <section className="section contact-section">

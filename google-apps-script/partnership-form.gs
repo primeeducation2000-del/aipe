@@ -1,11 +1,13 @@
 const TO_EMAIL = 'ai@aipe.uk';
+const SPREADSHEET_ID = '1z9SFxUbCzORPb7MU8y5yc3031JlwreIeSTUIs8XfYU8';
 const PARTNERSHIP_SHEET_NAME = 'Partnership Enquiries';
 const CONTACT_SHEET_NAME = 'Contact Enquiries';
+const TIME_ZONE = 'Europe/London';
 
 function doPost(e) {
   try {
     const data = JSON.parse((e.postData && e.postData.contents) || '{}');
-    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
 
     if (data.formType === 'contact') {
       handleContactEnquiry(spreadsheet, data);
@@ -51,7 +53,7 @@ function handlePartnershipEnquiry(spreadsheet, data) {
 
   const interests = Array.isArray(data.interests) ? data.interests.join(', ') : '';
   sheet.appendRow([
-    new Date(),
+    londonTimestamp(),
     data.name || '',
     data.organisation || '',
     data.role || '',
@@ -112,7 +114,7 @@ function handleContactEnquiry(spreadsheet, data) {
   ensureHeaders(sheet, headers);
 
   sheet.appendRow([
-    new Date(),
+    londonTimestamp(),
     data.name || '',
     data.email || '',
     data.phone || '',
@@ -145,6 +147,10 @@ function ensureHeaders(sheet, headers) {
   if (sheet.getLastRow() === 0) {
     sheet.appendRow(headers);
   }
+}
+
+function londonTimestamp() {
+  return Utilities.formatDate(new Date(), TIME_ZONE, 'yyyy-MM-dd HH:mm:ss');
 }
 
 function jsonResponse(payload) {
