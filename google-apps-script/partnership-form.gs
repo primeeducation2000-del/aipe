@@ -4,6 +4,8 @@ const PARTNERSHIP_SHEET_NAME = 'Partnership Enquiries';
 const CONTACT_SHEET_NAME = 'Contact Enquiries';
 const LEARNER_ACCESS_SHEET_NAME = 'Learner Access';
 const TIME_ZONE = 'Europe/London';
+const LEARNER_STATUS_OPTIONS = ['Active', 'Enrolled', 'Not enrolled', 'Paused', 'Completed', 'Withdrawn'];
+const PORTAL_ACCESS_OPTIONS = ['Yes', 'No'];
 
 function doPost(e) {
   try {
@@ -56,6 +58,7 @@ function handleLearnerAccess(spreadsheet, data) {
   ];
 
   ensureHeaders(sheet, headers);
+  applyLearnerAccessValidation(sheet);
 
   const values = sheet.getDataRange().getValues();
   for (var rowIndex = 1; rowIndex < values.length; rowIndex += 1) {
@@ -66,7 +69,7 @@ function handleLearnerAccess(spreadsheet, data) {
     const portalAccess = normalize(row[5]);
 
     if (rowEmail === email && rowAccessCode === accessCode) {
-      const learnerCanAccess = ['active', 'enrolled'].indexOf(status) !== -1 && ['yes', 'y', 'true'].indexOf(portalAccess) !== -1;
+      const learnerCanAccess = status === 'active' && portalAccess === 'yes';
 
       if (!learnerCanAccess) {
         return jsonResponse({
@@ -221,6 +224,21 @@ function ensureHeaders(sheet, headers) {
 
 function londonTimestamp() {
   return Utilities.formatDate(new Date(), TIME_ZONE, 'yyyy-MM-dd HH:mm:ss');
+}
+
+function applyLearnerAccessValidation(sheet) {
+  const maxRows = Math.max(sheet.getMaxRows() - 1, 1);
+  const statusRule = SpreadsheetApp.newDataValidation()
+    .requireValueInList(LEARNER_STATUS_OPTIONS, true)
+    .setAllowInvalid(false)
+    .build();
+  const portalAccessRule = SpreadsheetApp.newDataValidation()
+    .requireValueInList(PORTAL_ACCESS_OPTIONS, true)
+    .setAllowInvalid(false)
+    .build();
+
+  sheet.getRange(2, 5, maxRows, 1).setDataValidation(statusRule);
+  sheet.getRange(2, 6, maxRows, 1).setDataValidation(portalAccessRule);
 }
 
 function normalize(value) {
