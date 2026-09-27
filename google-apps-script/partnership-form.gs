@@ -2,12 +2,17 @@ const TO_EMAIL = 'ai@aipe.uk';
 const SPREADSHEET_ID = '1z9SFxUbCzORPb7MU8y5yc3031JlwreIeSTUIs8XfYU8';
 const PARTNERSHIP_SHEET_NAME = 'Partnership Enquiries';
 const CONTACT_SHEET_NAME = 'Contact Enquiries';
+const LEARNER_ACCESS_SHEET_NAME = 'Learner Access';
 const TIME_ZONE = 'Europe/London';
 
 function doPost(e) {
   try {
     const data = JSON.parse((e.postData && e.postData.contents) || '{}');
     const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+
+    if (data.formType === 'learnerAccess') {
+      return handleLearnerAccess(spreadsheet, data);
+    }
 
     if (data.formType === 'contact') {
       handleContactEnquiry(spreadsheet, data);
@@ -22,6 +27,71 @@ function doPost(e) {
       message: error.message
     });
   }
+}
+
+function handleLearnerAccess(spreadsheet, data) {
+  const email = normalize(data.email);
+  const accessCode = normalize(data.accessCode);
+
+  if (!email || !accessCode) {
+    return jsonResponse({
+      ok: true,
+      authorized: false,
+      message: 'Email and access code are required.'
+    });
+  }
+
+  const sheet = spreadsheet.getSheetByName(LEARNER_ACCESS_SHEET_NAME) || spreadsheet.insertSheet(LEARNER_ACCESS_SHEET_NAME);
+  const headers = [
+    'Email',
+    'Access code',
+    'Learner name',
+    'Course',
+    'Status',
+    'Portal access',
+    'Start date',
+    'End date',
+    'Last login',
+    'Notes'
+  ];
+
+  ensureHeaders(sheet, headers);
+
+  const values = sheet.getDataRange().getValues();
+  for (var rowIndex = 1; rowIndex < values.length; rowIndex += 1) {
+    const row = values[rowIndex];
+    const rowEmail = normalize(row[0]);
+    const rowAccessCode = normalize(row[1]);
+    const status = normalize(row[4]);
+    const portalAccess = normalize(row[5]);
+
+    if (rowEmail === email && rowAccessCode === accessCode) {
+      const learnerCanAccess = ['active', 'enrolled'].indexOf(status) !== -1 && ['yes', 'y', 'true'].indexOf(portalAccess) !== -1;
+
+      if (!learnerCanAccess) {
+        return jsonResponse({
+          ok: true,
+          authorized: false,
+          message: 'Your learner access is not active yet. Please contact AIPE if you think this is incorrect.'
+        });
+      }
+
+      sheet.getRange(rowIndex + 1, 9).setValue(londonTimestamp());
+
+      return jsonResponse({
+        ok: true,
+        authorized: true,
+        learnerName: row[2] || '',
+        course: row[3] || ''
+      });
+    }
+  }
+
+  return jsonResponse({
+    ok: true,
+    authorized: false,
+    message: 'We could not find active learner access for those details. Please check your email and access code or contact AIPE.'
+  });
 }
 
 function handlePartnershipEnquiry(spreadsheet, data) {
@@ -151,6 +221,10 @@ function ensureHeaders(sheet, headers) {
 
 function londonTimestamp() {
   return Utilities.formatDate(new Date(), TIME_ZONE, 'yyyy-MM-dd HH:mm:ss');
+}
+
+function normalize(value) {
+  return String(value || '').trim().toLowerCase();
 }
 
 function jsonResponse(payload) {

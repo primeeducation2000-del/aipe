@@ -2115,6 +2115,52 @@ function MessageIcon(props) {
 }
 
 function LearnerLoginPage({ navigate }) {
+  const [learnerLogin, setLearnerLogin] = useState({
+    email: '',
+    accessCode: ''
+  });
+  const [learnerLoginState, setLearnerLoginState] = useState({
+    status: 'idle',
+    message: ''
+  });
+
+  function updateLearnerLogin(field, value) {
+    setLearnerLogin((current) => ({ ...current, [field]: value }));
+    if (learnerLoginState.status !== 'idle') setLearnerLoginState({ status: 'idle', message: '' });
+  }
+
+  async function handleLearnerLogin(event) {
+    event.preventDefault();
+    setLearnerLoginState({ status: 'sending', message: 'Checking learner access...' });
+
+    try {
+      const response = await fetch('/api/learner-access', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(learnerLogin)
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Learner access could not be checked.');
+      }
+
+      setLearnerLoginState({ status: 'sent', message: 'Access confirmed. Opening your learner portal...' });
+      window.sessionStorage.setItem('aipeLearnerAccess', JSON.stringify({
+        email: learnerLogin.email,
+        learnerName: result.learnerName || '',
+        course: result.course || '',
+        signedInAt: new Date().toISOString()
+      }));
+      setTimeout(() => navigate('/lms'), 450);
+    } catch (error) {
+      setLearnerLoginState({
+        status: 'error',
+        message: error.message || 'We could not find active learner access for those details.'
+      });
+    }
+  }
+
   return (
     <section className="learner-login-page">
       <div className="learner-login-shell">
@@ -2133,9 +2179,11 @@ function LearnerLoginPage({ navigate }) {
 
         <article className="learner-login-card">
           <p>Sign in to continue your AIPE course. Use the email address provided when you joined your programme or learner cohort.</p>
-          <form onSubmit={(event) => event.preventDefault()}>
+          <form onSubmit={handleLearnerLogin}>
             <label htmlFor="learner-email">Email</label>
-            <input id="learner-email" type="email" placeholder="you@example.com" autoComplete="email" />
+            <input id="learner-email" type="email" placeholder="you@example.com" autoComplete="email" required value={learnerLogin.email} onChange={(event) => updateLearnerLogin('email', event.target.value)} />
+            <label htmlFor="learner-access-code">Access code</label>
+            <input id="learner-access-code" type="password" placeholder="Enter your access code" autoComplete="one-time-code" required value={learnerLogin.accessCode} onChange={(event) => updateLearnerLogin('accessCode', event.target.value)} />
             <label className="remember-device">
               <input type="checkbox" defaultChecked />
               <span>
@@ -2143,7 +2191,10 @@ function LearnerLoginPage({ navigate }) {
                 <small>Only use this on a device you trust.</small>
               </span>
             </label>
-            <Link href="/lms" navigate={navigate} className="button login-magic-link">Continue to Learner Portal</Link>
+            {learnerLoginState.message && <p className={`learner-login-status ${learnerLoginState.status}`}>{learnerLoginState.message}</p>}
+            <button className="button login-magic-link" type="submit" disabled={learnerLoginState.status === 'sending'}>
+              {learnerLoginState.status === 'sending' ? 'Checking access...' : 'Continue to Learner Portal'}
+            </button>
           </form>
           <Link href="/contact" navigate={navigate} className="login-request-link">Need learner access? Contact AIPE</Link>
         </article>

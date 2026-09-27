@@ -3948,7 +3948,7 @@ button, input, textarea { font: inherit; }
   z-index: 1;
   width: min(100%, 540px);
   display: grid;
-  gap: 1.45rem;
+  gap: 1.15rem;
 }
 
 .learner-login-brands {
@@ -4031,8 +4031,8 @@ button, input, textarea { font: inherit; }
 
 .learner-login-card {
   display: grid;
-  gap: 1.25rem;
-  padding: 2rem;
+  gap: 1rem;
+  padding: 1.55rem 1.65rem;
   border-radius: 24px;
 }
 
@@ -4043,35 +4043,38 @@ button, input, textarea { font: inherit; }
 
 .learner-login-card form {
   display: grid;
-  gap: .9rem;
+  gap: .68rem;
 }
 
 .learner-login-card label:not(.remember-device) {
   color: #243746;
   font-size: .88rem;
   font-weight: 820;
+  margin-top: .05rem;
 }
 
-.learner-login-card input[type="email"] {
+.learner-login-card input[type="email"],
+.learner-login-card input[type="password"] {
   width: 100%;
-  min-height: 44px;
-  padding: .75rem .9rem;
+  min-height: 40px;
+  padding: .62rem .85rem;
   border: 1px solid rgba(10,37,64,.1);
   border-radius: 14px;
   color: var(--ink);
   background: rgba(255,255,255,.72);
 }
 
-.learner-login-card input[type="email"]::placeholder {
+.learner-login-card input[type="email"]::placeholder,
+.learner-login-card input[type="password"]::placeholder {
   color: #8a97a3;
 }
 
 .remember-device {
   display: grid;
   grid-template-columns: 20px minmax(0, 1fr);
-  gap: .7rem;
+  gap: .62rem;
   align-items: start;
-  margin-top: .15rem;
+  margin-top: 0;
   color: #243746;
 }
 
@@ -4106,14 +4109,14 @@ button, input, textarea { font: inherit; }
 }
 
 .remember-device small {
-  margin-top: .28rem;
+  margin-top: .18rem;
   color: #697783;
   font-size: .78rem;
 }
 
 .login-magic-link {
   width: 100%;
-  margin-top: .2rem;
+  margin-top: .05rem;
   color: #fff;
   background: var(--action);
   border-color: rgba(99,91,255,.28);
@@ -4124,6 +4127,30 @@ button, input, textarea { font: inherit; }
   color: #fff;
   background: var(--action-dark);
   box-shadow: 0 22px 48px rgba(99,91,255,.28);
+}
+
+.learner-login-status {
+  margin: 0;
+  padding: .62rem .75rem;
+  border-radius: 12px;
+  font-size: .82rem;
+  font-weight: 760;
+  line-height: 1.35;
+}
+
+.learner-login-status.sending {
+  color: var(--action);
+  background: rgba(99,91,255,.08);
+}
+
+.learner-login-status.sent {
+  color: #17633f;
+  background: rgba(28,132,78,.1);
+}
+
+.learner-login-status.error {
+  color: #7a4a00;
+  background: rgba(194,139,40,.12);
 }
 
 .login-request-link {
@@ -4141,8 +4168,8 @@ button, input, textarea { font: inherit; }
 }
 
 .learner-login-feature-grid article {
-  min-height: 148px;
-  padding: 1rem;
+  min-height: 136px;
+  padding: .9rem;
   border-radius: 16px;
 }
 
