@@ -1598,7 +1598,7 @@ function RequestPartnershipPack() {
     } catch (error) {
       setSubmitState({
         status: 'error',
-        message: 'The Google Sheet connection is not available in this local preview yet. You can still open a pre-filled email draft below.'
+        message: 'Automatic sending is not connected yet. Please use the email draft below to send your enquiry.'
       });
     }
   }
@@ -1962,7 +1962,7 @@ function Contact({ navigate }) {
     } catch (error) {
       setContactSubmitState({
         status: 'error',
-        message: 'The Google Sheet connection is not available in this local preview yet. You can still open a pre-filled email draft below.'
+        message: 'Automatic sending is not connected yet. Please use the email draft below to send your enquiry.'
       });
     }
   }
