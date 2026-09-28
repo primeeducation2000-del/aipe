@@ -4169,6 +4169,57 @@ button, input, textarea { font: inherit; }
   background: rgba(194,139,40,.12);
 }
 
+.remembered-learner-panel {
+  display: grid;
+  gap: .55rem;
+  padding: .85rem;
+  border: 1px solid rgba(99,91,255,.16);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(99,91,255,.1), transparent 38%),
+    rgba(248,250,255,.82);
+}
+
+.remembered-learner-panel span {
+  color: #9a5b09;
+  font-size: .7rem;
+  font-weight: 920;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.remembered-learner-panel strong {
+  color: #0a2540;
+  font-size: 1rem;
+  line-height: 1.15;
+}
+
+.remembered-learner-panel div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  align-items: center;
+}
+
+.remembered-learner-panel .button {
+  min-height: 42px;
+  padding: .68rem .9rem;
+  font-size: .82rem;
+}
+
+.remembered-learner-clear {
+  border: 0;
+  padding: .4rem .2rem;
+  color: #385c86;
+  font: inherit;
+  font-size: .82rem;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  background: transparent;
+  cursor: pointer;
+}
+
 .login-request-link {
   justify-self: center;
   color: #385c86;

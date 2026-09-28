@@ -2122,6 +2122,7 @@ function LearnerLoginPage({ navigate }) {
     accessCode: ''
   });
   const [rememberLearner, setRememberLearner] = useState(false);
+  const [rememberedAccess, setRememberedAccess] = useState(null);
   const [learnerLoginState, setLearnerLoginState] = useState({
     status: 'idle',
     message: ''
@@ -2129,10 +2130,11 @@ function LearnerLoginPage({ navigate }) {
 
   useEffect(() => {
     try {
-      const rememberedAccess = window.localStorage.getItem(rememberedLearnerAccessStorageKey);
-      if (rememberedAccess) {
-        window.sessionStorage.setItem(learnerAccessStorageKey, rememberedAccess);
-        window.location.assign('/lms');
+      const storedRememberedAccess = window.localStorage.getItem(rememberedLearnerAccessStorageKey);
+      if (storedRememberedAccess) {
+        const parsedAccess = JSON.parse(storedRememberedAccess);
+        setRememberedAccess(parsedAccess);
+        setLearnerLogin((current) => ({ ...current, email: parsedAccess.email || '' }));
       }
     } catch {
       // If browser storage is blocked, the normal sign-in flow still works.
@@ -2192,6 +2194,32 @@ function LearnerLoginPage({ navigate }) {
     }
   }
 
+  function continueWithRememberedAccess() {
+    try {
+      window.sessionStorage.setItem(learnerAccessStorageKey, JSON.stringify(rememberedAccess));
+      window.location.assign('/lms');
+    } catch {
+      setLearnerLoginState({
+        status: 'error',
+        message: 'This browser could not open the remembered learner access. Please sign in again.'
+      });
+    }
+  }
+
+  function forgetRememberedAccess() {
+    try {
+      window.localStorage.removeItem(rememberedLearnerAccessStorageKey);
+      window.sessionStorage.removeItem(learnerAccessStorageKey);
+    } catch {
+      // If storage is blocked, still reset the visible page state.
+    }
+
+    setRememberedAccess(null);
+    setRememberLearner(false);
+    setLearnerLogin({ email: '', accessCode: '' });
+    setLearnerLoginState({ status: 'idle', message: '' });
+  }
+
   return (
     <section className="learner-login-page">
       <div className="learner-login-shell">
@@ -2210,6 +2238,16 @@ function LearnerLoginPage({ navigate }) {
 
         <article className="learner-login-card">
           <p>Sign in to continue your AIPE course. Use the email address provided when you joined your programme or learner cohort.</p>
+          {rememberedAccess && (
+            <div className="remembered-learner-panel">
+              <span>Remembered on this device</span>
+              <strong>{rememberedAccess.learnerName || rememberedAccess.email || 'Learner'}</strong>
+              <div>
+                <button className="button secondary bordered" type="button" onClick={continueWithRememberedAccess}>Continue as {getLearnerFirstName(rememberedAccess.learnerName)}</button>
+                <button className="remembered-learner-clear" type="button" onClick={forgetRememberedAccess}>Use another learner</button>
+              </div>
+            </div>
+          )}
           <form onSubmit={handleLearnerLogin}>
             <label htmlFor="learner-email">Email</label>
             <input id="learner-email" type="email" placeholder="you@example.com" autoComplete="email" required value={learnerLogin.email} onChange={(event) => updateLearnerLogin('email', event.target.value)} />
