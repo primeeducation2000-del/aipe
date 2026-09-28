@@ -17,6 +17,7 @@ import {
   Lock,
   Mail,
   Menu,
+  MessageCircle,
   Network,
   Play,
   Puzzle,
@@ -335,6 +336,7 @@ const partnerCapabilities = [
   'ESOL-linked digital confidence',
   'Learner onboarding and digital access checks',
   'Attendance, progress and evidence tracking',
+  'Assessment support, evidence review and portfolio preparation',
   'Practical project-based learning',
   'Employer and workplace-focused tasks'
 ];
@@ -348,7 +350,7 @@ const complianceItems = [
   ['Accessibility and reasonable adjustments', 'AIPE can design learner support around accessibility needs and reasonable adjustments, subject to partner and programme requirements.'],
   ['Complaints and learner support', 'AIPE can provide clear learner support, escalation and complaints processes for online and partner-delivered provision.'],
   ['Tutor competence and CPD', 'Tutors should have relevant subject knowledge, delivery experience, CPD records and practical understanding of AI, digital tools and cyber-safe working.'],
-  ['Evidence and progress tracking', 'AIPE can maintain evidence for attendance, learner progress, work samples, completion, feedback and employer or project outcomes.'],
+  ['Evidence, assessment support and progress tracking', 'AIPE can maintain evidence for attendance, learner progress, work samples, completion, feedback and employer or project outcomes. AIPE can also support evidence review and portfolio preparation for digital, IT and cyber-related accredited pathways where agreed with the lead provider or approved centre.'],
   ['Responsible AI and cyber-safe delivery', 'AIPE teaches and models safe digital practice, including careful use of AI tools, secure passwords, MFA, approved software and human checking.']
 ];
 
@@ -518,6 +520,7 @@ function App() {
       <main id="main" className={standalonePage ? 'standalone-main' : ''}>
         <Page navigate={navigate} />
       </main>
+      {!standalonePage && <AipeAssistant navigate={navigate} />}
       {!standalonePage && <Footer navigate={navigate} />}
     </>
   );
@@ -646,6 +649,140 @@ function Link({ href, children, className = '', navigate, ...props }) {
     <a href={href} className={className} onClick={(event) => navigate?.(event, href)} {...props}>
       {children}
     </a>
+  );
+}
+
+const assistantTopics = [
+  {
+    id: 'learner',
+    label: 'I’m a learner',
+    response: 'AIPE supports learners with practical AI, digital skills, cyber safety, ESOL-linked digital confidence and employability-focused training. You can explore learning options or contact AIPE for learner access.',
+    actions: [
+      ['View Learn page', '/learn'],
+      ['Learner Platform', '/learner-ai'],
+      ['Contact AIPE', '/contact']
+    ]
+  },
+  {
+    id: 'provider',
+    label: 'I’m a provider or college',
+    response: 'AIPE works with colleges, providers, councils and community organisations to support ESOL, digital inclusion, AI confidence, cyber safety, employability, assessment preparation, evidence review and portfolio support.',
+    actions: [
+      ['View Partners page', '/partners'],
+      ['Start a Partnership Conversation', '/request-partnership-pack']
+    ]
+  },
+  {
+    id: 'employer',
+    label: 'I’m an employer',
+    response: 'AIPE can support employers with practical AI training, digital confidence, cyber safety, workforce readiness and access to suitable candidates from AIPE learner pathways.',
+    actions: [
+      ['View Business page', '/for-business'],
+      ['Book a Consultation', '/contact']
+    ]
+  },
+  {
+    id: 'partnership',
+    label: 'Partnership options',
+    response: 'AIPE can support pilot cohorts, specialist workshops, community learning sessions, subcontracted delivery, add-on modules and employer-funded training. Delivery remains subject to programme suitability, safeguarding requirements and partner/funder eligibility.',
+    actions: [
+      ['Start a Partnership Conversation', '/request-partnership-pack']
+    ]
+  },
+  {
+    id: 'candidate',
+    label: 'Candidate pathway support',
+    response: 'AIPE has access to 100+ pre-screened candidates who have completed pathways in digital, cyber security, AI, social media, software development, coding, teaching assistant, contact centre and health and social care. AIPE can help partners explore interviews, work experience, progression routes and entry-level opportunities.',
+    actions: [
+      ['Contact AIPE', '/contact']
+    ]
+  },
+  {
+    id: 'platform',
+    label: 'Learner platform help',
+    response: 'The AIPE Learner Platform is for learners who have been given access as part of a course, programme or cohort. If you need access, please contact AIPE.',
+    actions: [
+      ['Learner Platform', '/learner-ai'],
+      ['Contact AIPE', '/contact']
+    ]
+  },
+  {
+    id: 'contact',
+    label: 'Contact AIPE',
+    response: 'You can contact AIPE by email at ai@aipe.uk or start a partnership conversation through the website.',
+    actions: [
+      ['Email AIPE', 'mailto:ai@aipe.uk'],
+      ['Start a Partnership Conversation', '/request-partnership-pack']
+    ]
+  }
+];
+
+function AipeAssistant({ navigate }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeTopicId, setActiveTopicId] = useState('learner');
+  const activeTopic = assistantTopics.find((topic) => topic.id === activeTopicId) || assistantTopics[0];
+
+  return (
+    <aside className={`aipe-assistant ${isOpen ? 'open' : ''}`} aria-label="AIPE Assistant">
+      {isOpen && (
+        <section className="aipe-assistant-panel" role="dialog" aria-label="AIPE Assistant" aria-live="polite">
+          <div className="aipe-assistant-header">
+            <span className="aipe-assistant-mark"><Sparkles size={18} aria-hidden="true" /></span>
+            <div>
+              <strong>AIPE Assistant</strong>
+              <small>Guided help</small>
+            </div>
+            <button type="button" className="aipe-assistant-close" onClick={() => setIsOpen(false)} aria-label="Minimise AIPE Assistant">
+              <X size={18} aria-hidden="true" />
+            </button>
+          </div>
+
+          <div className="aipe-assistant-body">
+            <div className="assistant-message assistant-message-intro">
+              Hello, I’m the AIPE Assistant. I can help with courses, partnerships, learner access and candidate pathway support.
+            </div>
+
+            <div className="assistant-choice-grid" aria-label="Choose a topic">
+              {assistantTopics.map((topic) => (
+                <button
+                  type="button"
+                  key={topic.id}
+                  className={topic.id === activeTopicId ? 'active' : ''}
+                  onClick={() => setActiveTopicId(topic.id)}
+                >
+                  {topic.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="assistant-message assistant-response">
+              <span>{activeTopic.label}</span>
+              <p>{activeTopic.response}</p>
+              <div className="assistant-action-row">
+                {activeTopic.actions.map(([label, href]) => (
+                  <Link key={label} href={href} navigate={navigate} className="assistant-action-link">
+                    {label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <p className="assistant-note">This assistant uses preset answers only and does not collect personal details.</p>
+          </div>
+        </section>
+      )}
+
+      <button
+        type="button"
+        className="aipe-assistant-toggle"
+        onClick={() => setIsOpen((current) => !current)}
+        aria-expanded={isOpen}
+        aria-label={isOpen ? 'Minimise AIPE Assistant' : 'Open AIPE Assistant'}
+      >
+        {isOpen ? <X size={20} aria-hidden="true" /> : <MessageCircle size={20} aria-hidden="true" />}
+        <span>{isOpen ? 'Close' : 'AIPE Assistant'}</span>
+      </button>
+    </aside>
   );
 }
 
@@ -1370,7 +1507,8 @@ function Partners({ navigate }) {
     'AI for Career Changers',
     'Cyber Safety for Everyday Life and Work',
     'Introductory Networking and Cybersecurity pathways',
-    'Digital confidence and employability workshops'
+    'Digital confidence and employability workshops',
+    'Assessment support and portfolio preparation for digital, IT and cyber pathways'
   ];
   const formats = [
     'Online live sessions',
@@ -1397,6 +1535,7 @@ function Partners({ navigate }) {
     'Progress reviews',
     'Work samples',
     'Portfolio evidence',
+    'Assessment preparation and evidence review',
     'Safeguarding and inclusive delivery awareness',
     'Delivery aligned to partner requirements'
   ];
@@ -1759,7 +1898,7 @@ function Courses({ navigate }) {
       <section className="section tinted">
         <div className="container narrow">
           <h2>Qualifications and partner delivery</h2>
-          <p>Can be aligned to accredited qualifications or delivered alongside a lead provider’s approved qualification route where required.</p>
+          <p>Can be aligned to accredited qualifications or delivered alongside a lead provider’s approved qualification route where required. AIPE can support assessment preparation, evidence review and portfolio preparation for digital, IT and cyber-related pathways, subject to lead provider and awarding organisation requirements.</p>
           <p>AIPE does not currently claim to be an awarding body, approved centre, funded provider or regulated qualification provider.</p>
         </div>
       </section>
@@ -1787,7 +1926,7 @@ function Compliance({ navigate }) {
       <section className="section tinted">
         <div className="container narrow disclaimer-panel">
           <h2>Current status</h2>
-          <p>AIPE does not currently claim to be an Ofsted-regulated provider, awarding body, approved centre or funded provider. Where funded or accredited provision is required, AIPE works under the relevant lead provider, awarding organisation or funder requirements.</p>
+          <p>AIPE does not currently claim to be an Ofsted-regulated provider, awarding body, approved centre or funded provider. Where funded or accredited provision is required, AIPE works under the relevant lead provider, awarding organisation or funder requirements, including internal quality assurance and final assessment sign-off rules.</p>
         </div>
       </section>
     </>
@@ -2071,7 +2210,7 @@ function Sectors() {
 }
 
 function Qualifications() {
-  return <><PageHero eyebrow="Qualifications" title="Clear distinction between training and future regulated pathways." text="AIPE can support professional training now, while keeping space for recognised regulated qualification data if approvals are secured later." /><section className="section"><div className="container three-col"><InfoCard icon={BookOpen} title="AIPE Training" text="AIPE-developed professional training for practical AI capability." /><InfoCard icon={ClipboardCheck} title="Certificates of Completion" text="Can be used for internal or non-regulated programmes where appropriate." /><InfoCard icon={Lock} title="Regulated Qualifications" text="A future area only if awarding-body partnerships or approvals are secured." /></div></section><section className="section tinted"><div className="container narrow"><h2>Future data model</h2><TagList items={['Awarding organisation', 'Qualification number', 'Level', 'Guided learning hours', 'Total qualification time', 'Assessment method', 'Units', 'Eligibility', 'Funding status']} /></div></section></>;
+  return <><PageHero eyebrow="Qualifications" title="Clear distinction between training and future regulated pathways." text="AIPE can support professional training now, while keeping space for recognised regulated qualification data if approvals are secured later." /><section className="section"><div className="container three-col"><InfoCard icon={BookOpen} title="AIPE Training" text="AIPE-developed professional training for practical AI capability." /><InfoCard icon={ClipboardCheck} title="Assessment Support" text="Evidence review and portfolio preparation can support partner-led digital, IT and cyber pathways where approved processes allow." /><InfoCard icon={Lock} title="Regulated Qualifications" text="A future area only if awarding-body partnerships or approvals are secured." /></div></section><section className="section tinted"><div className="container narrow"><h2>Future data model</h2><TagList items={['Awarding organisation', 'Qualification number', 'Level', 'Guided learning hours', 'Total qualification time', 'Assessment method', 'Units', 'Eligibility', 'Funding status']} /></div></section></>;
 }
 
 function LearnerAIPlatform({ navigate }) {
