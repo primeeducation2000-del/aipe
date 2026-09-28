@@ -2155,7 +2155,7 @@ function LearnerLoginPage({ navigate }) {
         course: result.course || '',
         signedInAt: new Date().toISOString()
       }));
-      setTimeout(() => navigate('/lms'), 450);
+      window.location.assign('/lms');
     } catch (error) {
       setLearnerLoginState({
         status: 'error',
