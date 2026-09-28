@@ -4084,19 +4084,35 @@ button, input, textarea { font: inherit; }
   height: 18px;
   margin: .16rem 0 0;
   border-radius: 50%;
+  background: #fff;
+  border: 2px solid rgba(10,37,64,.18);
+  box-shadow: 0 0 0 2px rgba(10,37,64,.04);
+  cursor: pointer;
+}
+
+.remember-device input:checked {
   background: #ffd000;
+  border-color: #ffd000;
   box-shadow: 0 0 0 2px rgba(194,139,40,.16);
 }
 
 .remember-device input::after {
   content: "";
-  display: block;
+  display: none;
   width: 8px;
   height: 4px;
-  margin: 5px 0 0 4px;
+  margin: 4px 0 0 3px;
   border-left: 2px solid #0a2540;
   border-bottom: 2px solid #0a2540;
   transform: rotate(-45deg);
+}
+
+.remember-device input:checked::after {
+  display: block;
+}
+
+.remember-device span {
+  cursor: pointer;
 }
 
 .remember-device strong,
