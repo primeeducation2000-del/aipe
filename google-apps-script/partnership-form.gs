@@ -6,6 +6,19 @@ const LEARNER_ACCESS_SHEET_NAME = 'Learner Access';
 const TIME_ZONE = 'Europe/London';
 const LEARNER_STATUS_OPTIONS = ['Active', 'Enrolled', 'Not enrolled', 'Paused', 'Completed', 'Withdrawn'];
 const PORTAL_ACCESS_OPTIONS = ['Yes', 'No'];
+const COURSE_OPTIONS = [
+  'ESOL / English',
+  'English for Work',
+  'Practical AI Skills for Work',
+  'AI Confidence for Jobseekers',
+  'Digital Skills for ESOL Learners',
+  'Cyber Safety for Everyday Life and Work',
+  'Digital Inclusion',
+  'Accredited Course',
+  'Vendor Course',
+  'Employer / Partner Course',
+  'Custom Programme'
+];
 
 function doPost(e) {
   try {
@@ -228,6 +241,10 @@ function londonTimestamp() {
 
 function applyLearnerAccessValidation(sheet) {
   const maxRows = Math.max(sheet.getMaxRows() - 1, 1);
+  const courseRule = SpreadsheetApp.newDataValidation()
+    .requireValueInList(COURSE_OPTIONS, true)
+    .setAllowInvalid(false)
+    .build();
   const statusRule = SpreadsheetApp.newDataValidation()
     .requireValueInList(LEARNER_STATUS_OPTIONS, true)
     .setAllowInvalid(false)
@@ -237,6 +254,7 @@ function applyLearnerAccessValidation(sheet) {
     .setAllowInvalid(false)
     .build();
 
+  sheet.getRange(2, 4, maxRows, 1).setDataValidation(courseRule);
   sheet.getRange(2, 5, maxRows, 1).setDataValidation(statusRule);
   sheet.getRange(2, 6, maxRows, 1).setDataValidation(portalAccessRule);
 }
