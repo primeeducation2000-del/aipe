@@ -253,10 +253,15 @@ function applyLearnerAccessValidation(sheet) {
     .requireValueInList(PORTAL_ACCESS_OPTIONS, true)
     .setAllowInvalid(false)
     .build();
+  const dateRule = SpreadsheetApp.newDataValidation()
+    .requireDate()
+    .setAllowInvalid(false)
+    .build();
 
   sheet.getRange(2, 4, maxRows, 1).setDataValidation(courseRule);
   sheet.getRange(2, 5, maxRows, 1).setDataValidation(statusRule);
   sheet.getRange(2, 6, maxRows, 1).setDataValidation(portalAccessRule);
+  sheet.getRange(2, 7, maxRows, 2).setDataValidation(dateRule).setNumberFormat('dd/mm/yyyy');
 }
 
 function normalize(value) {
