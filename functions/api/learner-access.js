@@ -55,6 +55,7 @@ export async function onRequestPost({ request, env }) {
   return jsonResponse({
     message: 'Learner access confirmed.',
     learnerName: result.learnerName || '',
-    course: result.course || ''
+    course: result.course || '',
+    courses: Array.isArray(result.courses) ? result.courses : []
   });
 }

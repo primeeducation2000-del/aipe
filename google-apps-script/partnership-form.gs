@@ -74,6 +74,10 @@ function handleLearnerAccess(spreadsheet, data) {
   applyLearnerAccessValidation(sheet);
 
   const values = sheet.getDataRange().getValues();
+  const courses = [];
+  let learnerName = '';
+  let matchedLearner = false;
+
   for (var rowIndex = 1; rowIndex < values.length; rowIndex += 1) {
     const row = values[rowIndex];
     const rowEmail = normalize(row[0]);
@@ -82,31 +86,39 @@ function handleLearnerAccess(spreadsheet, data) {
     const portalAccess = normalize(row[5]);
 
     if (rowEmail === email && rowAccessCode === accessCode) {
+      matchedLearner = true;
       const learnerCanAccess = status === 'active' && portalAccess === 'yes';
 
-      if (!learnerCanAccess) {
-        return jsonResponse({
-          ok: true,
-          authorized: false,
-          message: 'Learner access was not recognised or is not active yet. Please check your email and access code, or contact AIPE for support.'
+      if (learnerCanAccess) {
+        learnerName = learnerName || row[2] || '';
+        sheet.getRange(rowIndex + 1, 9).setValue(londonTimestamp());
+        courses.push({
+          course: row[3] || '',
+          status: row[4] || '',
+          startDate: formatSheetDate(row[6]),
+          endDate: formatSheetDate(row[7]),
+          notes: row[9] || ''
         });
       }
-
-      sheet.getRange(rowIndex + 1, 9).setValue(londonTimestamp());
-
-      return jsonResponse({
-        ok: true,
-        authorized: true,
-        learnerName: row[2] || '',
-        course: row[3] || ''
-      });
     }
+  }
+
+  if (courses.length > 0) {
+    return jsonResponse({
+      ok: true,
+      authorized: true,
+      learnerName: learnerName,
+      course: courses[0].course || '',
+      courses: courses
+    });
   }
 
   return jsonResponse({
     ok: true,
     authorized: false,
-    message: 'Learner access was not recognised or is not active yet. Please check your email and access code, or contact AIPE for support.'
+    message: matchedLearner
+      ? 'Learner access is on record, but portal access is not active yet. Please contact AIPE for support.'
+      : 'Learner access was not recognised. Please check your email and access code, or contact AIPE for support.'
   });
 }
 
@@ -237,6 +249,14 @@ function ensureHeaders(sheet, headers) {
 
 function londonTimestamp() {
   return Utilities.formatDate(new Date(), TIME_ZONE, 'yyyy-MM-dd HH:mm:ss');
+}
+
+function formatSheetDate(value) {
+  if (Object.prototype.toString.call(value) === '[object Date]' && !isNaN(value.getTime())) {
+    return Utilities.formatDate(value, TIME_ZONE, 'dd/MM/yyyy');
+  }
+
+  return value || '';
 }
 
 function applyLearnerAccessValidation(sheet) {

@@ -4272,6 +4272,94 @@ button, input, textarea { font: inherit; }
   line-height: 1.12;
 }
 
+.learner-course-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .85rem;
+}
+
+.learner-course-card {
+  display: grid;
+  gap: .8rem;
+  align-content: start;
+  padding: 1rem;
+  border: 1px solid rgba(99,91,255,.16);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(99,91,255,.1), transparent 34%),
+    linear-gradient(135deg, rgba(255,255,255,.96), rgba(248,250,255,.9));
+  box-shadow: 0 18px 44px rgba(10,37,64,.06);
+}
+
+.learner-course-kicker {
+  color: #9a5b09;
+  font-size: .72rem;
+  font-weight: 920;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.learner-course-card h3 {
+  margin: 0;
+  color: #0a2540;
+  font-size: 1.28rem;
+  line-height: 1.08;
+}
+
+.learner-course-card p {
+  margin: 0;
+  color: #526170;
+}
+
+.learner-course-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.learner-course-meta span {
+  display: grid;
+  gap: .1rem;
+  min-width: 112px;
+  padding: .55rem .65rem;
+  border: 1px solid rgba(10,37,64,.08);
+  border-radius: 12px;
+  color: #24384f;
+  font-weight: 780;
+  background: rgba(255,255,255,.82);
+}
+
+.learner-course-meta strong {
+  color: #6b7785;
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.learner-course-card .button {
+  justify-self: start;
+  margin-top: .2rem;
+}
+
+.learner-course-empty {
+  display: grid;
+  gap: .7rem;
+  padding: 1rem;
+  border: 1px solid rgba(194,139,40,.22);
+  border-radius: 16px;
+  color: #526170;
+  background: rgba(255,248,232,.72);
+}
+
+.learner-course-empty strong {
+  color: #0a2540;
+}
+
+.learner-course-empty .button {
+  justify-self: start;
+}
+
 .support-panel {
   display: grid;
   align-content: start;
@@ -5335,6 +5423,7 @@ button, input, textarea { font: inherit; }
   .learner-login-feature-grid { grid-template-columns: 1fr; }
   .lms-flavour-hero { padding: 58px 0 46px; }
   .lms-flavour-hero h1 { font-size: 3rem; }
+  .learner-course-grid { grid-template-columns: 1fr; }
   .lesson-video { min-height: 220px; }
   .workspace-body { grid-template-columns: 1fr; }
   .workspace-tabs, .learner-tool-list, .learner-flow-grid { grid-template-columns: 1fr; }

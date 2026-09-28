@@ -2148,11 +2148,18 @@ function LearnerLoginPage({ navigate }) {
         throw new Error(result.message || 'Learner access could not be checked.');
       }
 
+      const learnerCourses = Array.isArray(result.courses) && result.courses.length
+        ? result.courses
+        : result.course
+          ? [{ course: result.course, status: 'Active' }]
+          : [];
+
       setLearnerLoginState({ status: 'sent', message: 'Access confirmed. Opening your learner portal...' });
       window.sessionStorage.setItem('aipeLearnerAccess', JSON.stringify({
         email: learnerLogin.email,
         learnerName: result.learnerName || '',
-        course: result.course || '',
+        course: learnerCourses[0]?.course || result.course || '',
+        courses: learnerCourses,
         signedInAt: new Date().toISOString()
       }));
       window.location.assign('/lms');
@@ -2291,18 +2298,53 @@ function ProtectedSkeleton({ kind }) {
   return kind === 'lms' ? <LearnerDashboard /> : <EngineerDashboard />;
 }
 
+function getStoredLearnerAccess() {
+  if (typeof window === 'undefined') return null;
+
+  try {
+    return JSON.parse(window.sessionStorage.getItem('aipeLearnerAccess') || 'null');
+  } catch {
+    return null;
+  }
+}
+
+function getLearnerFirstName(name) {
+  return String(name || '').trim().split(/\s+/)[0] || 'Learner';
+}
+
+function normalizeLearnerCourses(access) {
+  if (Array.isArray(access?.courses) && access.courses.length) {
+    return access.courses;
+  }
+
+  if (access?.course) {
+    return [{ course: access.course, status: 'Active' }];
+  }
+
+  return [];
+}
+
 function LearnerDashboard() {
+  const learnerAccess = getStoredLearnerAccess();
+  const learnerName = learnerAccess?.learnerName || '';
+  const learnerCourses = normalizeLearnerCourses(learnerAccess);
+  const courseCount = learnerCourses.length;
+
   return (
     <main className="lms-flavour-page">
       <section className="lms-flavour-hero">
         <div className="container lms-hero-grid">
           <div>
-            <p className="eyebrow">Learner portal preview</p>
-            <h1>Learn, practise, submit, improve.</h1>
-            <p className="lead">A first taste of the AIPE VLE/LMS: focused lessons, practical evidence, tutor feedback and progress that feels useful every time a learner signs in.</p>
+            <p className="eyebrow">Learner dashboard</p>
+            <h1>Welcome, {getLearnerFirstName(learnerName)}.</h1>
+            <p className="lead">
+              {courseCount
+                ? 'Your active AIPE course access is ready. Continue from your course card below, review your next steps and keep your learning evidence in one calm place.'
+                : 'Sign in through the learner portal to view your active AIPE course access, resources and next steps.'}
+            </p>
             <div className="actions">
-              <a href="#lesson-view" className="button primary">Continue Learning <Play size={18} /></a>
-              <a href="#assessments" className="button secondary bordered">View Assessment</a>
+              <a href="#my-courses" className="button primary">View My Courses <Play size={18} /></a>
+              <a href="/contact" className="button secondary bordered">Learner Support</a>
             </div>
           </div>
           <LearnerWorkspaceMock />
@@ -2312,12 +2354,12 @@ function LearnerDashboard() {
         <div className="container dashboard-layout">
           <aside className="dashboard-nav">{protectedPages.lms.map((item) => <a key={item} href={`#${item.toLowerCase().replaceAll(' ', '-')}`}>{item}</a>)}</aside>
           <div className="dashboard-main">
-            <div className="dashboard-stats"><Stat label="Course progress" value="68%" /><Stat label="Study streak" value="4 days" /><Stat label="Feedback" value="2 notes" /></div>
+            <div className="dashboard-stats"><Stat label="Active courses" value={courseCount || '0'} /><Stat label="Portal access" value={courseCount ? 'Active' : 'Login'} /><Stat label="Next step" value={courseCount ? 'Continue' : 'Sign in'} /></div>
             <div className="lms-focus-grid">
               <ProgressPanel />
               <LearnerSupportPanel />
             </div>
-            <article className="dashboard-panel lms-course-panel" id="my-courses"><h2>My Courses</h2><CourseProgressList /></article>
+            <article className="dashboard-panel lms-course-panel" id="my-courses"><h2>My Courses</h2><LearnerCourseCards courses={learnerCourses} /></article>
             <LessonPlayerPanel />
             <AssessmentPanel />
             <article className="dashboard-panel certificate-panel" id="certificates"><h2>Certificates / Completion</h2><p>Certificate preview unlocks when all required lessons, evidence and tutor sign-off are complete.</p><div className="certificate-preview"><span>AIPE</span><strong>Certificate of Completion</strong><small>Practical AI Skills for Work</small></div></article>
@@ -2325,6 +2367,36 @@ function LearnerDashboard() {
         </div>
       </section>
     </main>
+  );
+}
+
+function LearnerCourseCards({ courses }) {
+  if (!courses.length) {
+    return (
+      <div className="learner-course-empty">
+        <strong>No active course access found in this session.</strong>
+        <span>Please sign in again with the email and access code provided by AIPE, or contact AIPE if you believe this is incorrect.</span>
+        <a href="/learner-ai" className="button secondary bordered">Back to Learner Login</a>
+      </div>
+    );
+  }
+
+  return (
+    <div className="learner-course-grid">
+      {courses.map((course, index) => (
+        <article className="learner-course-card" key={`${course.course || 'course'}-${index}`}>
+          <span className="learner-course-kicker">Course {index + 1}</span>
+          <h3>{course.course || 'AIPE course'}</h3>
+          <div className="learner-course-meta">
+            <span><strong>Status</strong>{course.status || 'Active'}</span>
+            {course.startDate && <span><strong>Start</strong>{course.startDate}</span>}
+            {course.endDate && <span><strong>End</strong>{course.endDate}</span>}
+          </div>
+          {course.notes && <p>{course.notes}</p>}
+          <a href="#lesson-view" className="button secondary bordered">Continue course</a>
+        </article>
+      ))}
+    </div>
   );
 }
 
