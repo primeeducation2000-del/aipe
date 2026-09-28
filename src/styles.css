@@ -2505,29 +2505,49 @@ button, input, textarea { font: inherit; }
   grid-row: 1 / span 5;
   align-self: center;
   position: relative;
+  overflow: hidden;
   display: grid;
-  gap: .9rem;
-  padding: clamp(1.25rem, 2vw, 1.55rem);
-  border: 1px solid rgba(99, 91, 255, .18);
-  border-radius: 8px;
+  gap: 1rem;
+  padding: clamp(1.35rem, 2.2vw, 1.75rem);
+  border: 1px solid rgba(99, 91, 255, .24);
+  border-radius: 22px;
   background:
-    linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.9)),
-    radial-gradient(circle at 88% 12%, rgba(255, 138, 0, .12), transparent 32%);
-  box-shadow: 0 28px 74px rgba(10,37,64,.12);
+    linear-gradient(145deg, rgba(255,255,255,.98), rgba(248,250,255,.92) 58%, rgba(255,248,232,.88)),
+    radial-gradient(circle at 88% 10%, rgba(255, 138, 0, .24), transparent 30%),
+    radial-gradient(circle at 8% 12%, rgba(99, 91, 255, .16), transparent 34%);
+  box-shadow:
+    0 34px 82px rgba(10,37,64,.16),
+    0 0 0 1px rgba(255,255,255,.9) inset,
+    0 18px 54px rgba(99,91,255,.12);
 }
 
 .partner-talent-card::before {
   content: "";
   position: absolute;
-  inset: 12px -12px -12px 12px;
+  inset: 12px -14px -14px 12px;
   z-index: -1;
-  border: 8px solid rgba(111, 205, 244, .72);
-  border-radius: 8px;
-  transform: rotate(7deg);
-  background: rgba(255, 229, 132, .28);
+  border: 1px solid rgba(99,91,255,.22);
+  border-radius: 24px;
+  transform: rotate(5deg);
+  background:
+    linear-gradient(135deg, rgba(99,91,255,.24), rgba(255,210,104,.28));
+  box-shadow: 0 26px 70px rgba(99,91,255,.16);
+}
+
+.partner-talent-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, rgba(255,255,255,.62), transparent 24%),
+    radial-gradient(circle at 86% 12%, rgba(255,255,255,.92), transparent 18%),
+    linear-gradient(180deg, rgba(255,255,255,.32), transparent 42%);
 }
 
 .partner-talent-card-top {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: .85rem;
@@ -2539,10 +2559,13 @@ button, input, textarea { font: inherit; }
   justify-content: center;
   width: 3.65rem;
   height: 3.65rem;
-  border-radius: 8px;
+  border-radius: 18px;
   color: #fff;
-  background: var(--action);
-  box-shadow: 0 16px 34px rgba(99,91,255,.24);
+  background:
+    linear-gradient(135deg, #7c5cff, #5147f0 62%, #2f4563);
+  box-shadow:
+    0 18px 38px rgba(99,91,255,.32),
+    0 0 0 1px rgba(255,255,255,.38) inset;
 }
 
 .partner-talent-label {
@@ -2550,36 +2573,51 @@ button, input, textarea { font: inherit; }
   align-items: center;
   min-height: 2.2rem;
   padding: .38rem .78rem;
-  border: 1px solid rgba(166,106,18,.2);
+  border: 1px solid rgba(166,106,18,.28);
   border-radius: 999px;
-  background: rgba(255,248,231,.86);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.94), rgba(255,248,231,.9));
   color: var(--brand-gold);
   font-size: .88rem;
   font-weight: 900;
+  box-shadow: 0 10px 24px rgba(166,106,18,.08);
 }
 
 .partner-talent-card strong {
+  position: relative;
+  z-index: 1;
   color: var(--ink);
-  font-size: clamp(1.55rem, 2.35vw, 2rem);
-  line-height: 1.08;
+  font-size: clamp(1.8rem, 2.65vw, 2.35rem);
+  line-height: 1.02;
   letter-spacing: 0;
 }
 
 .partner-talent-card p {
+  position: relative;
+  z-index: 1;
   margin: 0;
-  color: #526170;
+  color: #40505e;
   font-size: .98rem;
   line-height: 1.55;
 }
 
 .partner-talent-card small {
+  position: relative;
+  z-index: 1;
+  display: block;
+  padding: .82rem .9rem;
+  border: 1px solid rgba(99,91,255,.12);
+  border-radius: 16px;
   color: var(--ink);
   font-size: .88rem;
   font-weight: 850;
   line-height: 1.45;
+  background: rgba(255,255,255,.66);
 }
 
 .partner-talent-tags {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   gap: .45rem;
@@ -2590,12 +2628,13 @@ button, input, textarea { font: inherit; }
   align-items: center;
   min-height: 2rem;
   padding: .28rem .65rem;
-  border: 1px solid rgba(99,91,255,.16);
+  border: 1px solid rgba(99,91,255,.22);
   border-radius: 999px;
-  background: rgba(247,249,255,.92);
+  background: rgba(255,255,255,.88);
   color: var(--ink);
   font-size: .82rem;
   font-weight: 850;
+  box-shadow: 0 10px 22px rgba(10,37,64,.055);
 }
 .breadcrumbs {
   display: flex;
