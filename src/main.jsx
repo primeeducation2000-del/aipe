@@ -1429,6 +1429,18 @@ function Partners({ navigate }) {
           </div>
           <p>Prefer email? Contact <a href="mailto:ai@aipe.uk">ai@aipe.uk</a></p>
         </div>
+        <aside className="partner-talent-card" aria-label="AIPE pre-screened talent pool">
+          <div className="partner-talent-card-top">
+            <span className="partner-talent-icon"><Users size={25} aria-hidden="true" /></span>
+            <span className="partner-talent-label">Candidate pathway support</span>
+          </div>
+          <strong>100+ pre-screened candidates</strong>
+          <p>Connect with suitable candidates who have completed pathways in digital, cyber security, AI, social media, software development, coding, teaching assistant, contact centre and health and social care.</p>
+          <small>For interviews, work experience, progression routes and entry-level opportunities.</small>
+          <div className="partner-talent-tags" aria-label="Example candidate areas">
+            {['Digital', 'Cyber', 'AI', 'Care', 'ESOL'].map((item) => <span key={item}>{item}</span>)}
+          </div>
+        </aside>
       </PageHero>
       <section className="section partner-provider-section">
         <div className="container split">
