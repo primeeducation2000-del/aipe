@@ -2121,7 +2121,7 @@ function LearnerLoginPage({ navigate }) {
     email: '',
     accessCode: ''
   });
-  const [rememberLearner, setRememberLearner] = useState(true);
+  const [rememberLearner, setRememberLearner] = useState(false);
   const [learnerLoginState, setLearnerLoginState] = useState({
     status: 'idle',
     message: ''
