@@ -32,6 +32,8 @@ import {
 import './styles.css';
 
 const siteUrl = 'https://aipe.uk';
+const learnerAccessStorageKey = 'aipeLearnerAccess';
+const rememberedLearnerAccessStorageKey = 'aipeRememberedLearnerAccess';
 
 const routes = {
   '/': {
@@ -2119,10 +2121,23 @@ function LearnerLoginPage({ navigate }) {
     email: '',
     accessCode: ''
   });
+  const [rememberLearner, setRememberLearner] = useState(true);
   const [learnerLoginState, setLearnerLoginState] = useState({
     status: 'idle',
     message: ''
   });
+
+  useEffect(() => {
+    try {
+      const rememberedAccess = window.localStorage.getItem(rememberedLearnerAccessStorageKey);
+      if (rememberedAccess) {
+        window.sessionStorage.setItem(learnerAccessStorageKey, rememberedAccess);
+        window.location.assign('/lms');
+      }
+    } catch {
+      // If browser storage is blocked, the normal sign-in flow still works.
+    }
+  }, []);
 
   function updateLearnerLogin(field, value) {
     setLearnerLogin((current) => ({ ...current, [field]: value }));
@@ -2153,15 +2168,21 @@ function LearnerLoginPage({ navigate }) {
         : result.course
           ? [{ course: result.course, status: 'Active' }]
           : [];
-
-      setLearnerLoginState({ status: 'sent', message: 'Access confirmed. Opening your learner portal...' });
-      window.sessionStorage.setItem('aipeLearnerAccess', JSON.stringify({
+      const learnerAccess = JSON.stringify({
         email: learnerLogin.email,
         learnerName: result.learnerName || '',
         course: learnerCourses[0]?.course || result.course || '',
         courses: learnerCourses,
         signedInAt: new Date().toISOString()
-      }));
+      });
+
+      setLearnerLoginState({ status: 'sent', message: 'Access confirmed. Opening your learner portal...' });
+      window.sessionStorage.setItem(learnerAccessStorageKey, learnerAccess);
+      if (rememberLearner) {
+        window.localStorage.setItem(rememberedLearnerAccessStorageKey, learnerAccess);
+      } else {
+        window.localStorage.removeItem(rememberedLearnerAccessStorageKey);
+      }
       window.location.assign('/lms');
     } catch (error) {
       setLearnerLoginState({
@@ -2195,7 +2216,7 @@ function LearnerLoginPage({ navigate }) {
             <label htmlFor="learner-access-code">Access code</label>
             <input id="learner-access-code" type="password" placeholder="Enter your access code" autoComplete="one-time-code" required value={learnerLogin.accessCode} onChange={(event) => updateLearnerLogin('accessCode', event.target.value)} />
             <label className="remember-device">
-              <input type="checkbox" defaultChecked />
+              <input type="checkbox" checked={rememberLearner} onChange={(event) => setRememberLearner(event.target.checked)} />
               <span>
                 <strong>Remember me</strong>
                 <small>Only use this on a device you trust.</small>
@@ -2302,7 +2323,9 @@ function getStoredLearnerAccess() {
   if (typeof window === 'undefined') return null;
 
   try {
-    return JSON.parse(window.sessionStorage.getItem('aipeLearnerAccess') || 'null');
+    const storedAccess = window.sessionStorage.getItem(learnerAccessStorageKey)
+      || window.localStorage.getItem(rememberedLearnerAccessStorageKey);
+    return JSON.parse(storedAccess || 'null');
   } catch {
     return null;
   }
