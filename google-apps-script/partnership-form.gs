@@ -75,7 +75,7 @@ function handleLearnerAccess(spreadsheet, data) {
         return jsonResponse({
           ok: true,
           authorized: false,
-          message: 'Your learner access is not active yet. Please contact AIPE if you think this is incorrect.'
+          message: 'Learner access was not recognised or is not active yet. Please check your email and access code, or contact AIPE for support.'
         });
       }
 
@@ -93,7 +93,7 @@ function handleLearnerAccess(spreadsheet, data) {
   return jsonResponse({
     ok: true,
     authorized: false,
-    message: 'We could not find active learner access for those details. Please check your email and access code or contact AIPE.'
+    message: 'Learner access was not recognised or is not active yet. Please check your email and access code, or contact AIPE for support.'
   });
 }
 

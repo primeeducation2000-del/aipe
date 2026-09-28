@@ -48,7 +48,7 @@ export async function onRequestPost({ request, env }) {
 
   if (!result.authorized) {
     return jsonResponse({
-      message: result.message || 'We could not find active learner access for those details.'
+      message: 'Learner access was not recognised or is not active yet. Please check your email and access code, or contact AIPE for support.'
     }, 401);
   }
 
