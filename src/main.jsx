@@ -616,6 +616,7 @@ function breadcrumbsFor(path) {
     'ai-agents': 'AI Agents',
     'ai-knowledge-rag': 'AI Knowledge / RAG',
     partners: 'Partners',
+    'request-partnership-pack': 'Partnership Conversation',
     compliance: 'Compliance',
     resources: 'Resources',
     'ai-glossary': 'AI Glossary',
@@ -1719,7 +1720,7 @@ function AdultLearning({ navigate }) {
 function Courses({ navigate }) {
   return (
     <>
-      <PageHero eyebrow="Courses" title="Focused AI, digital skills and cyber safety courses." text="AIPE’s course catalogue is intentionally practical and credible: a focused set of adult learning and workforce programmes that can be delivered online or in partnership where required.">
+      <PageHero eyebrow="Courses" title="Focused AI, digital skills and cyber safety courses." text="AIPE’s course catalogue is intentionally practical and credible: a focused set of practical learner, adult learning and workforce programmes for people aged 16+ and adults, delivered online or in partnership where required.">
         <Link href="/contact?intent=learner" navigate={navigate} className="button primary">Request a Course Outline</Link>
       </PageHero>
       <section className="section">
