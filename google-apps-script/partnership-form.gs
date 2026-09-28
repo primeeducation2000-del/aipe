@@ -14,8 +14,8 @@ const COURSE_OPTIONS = [
   'Digital Skills for ESOL Learners',
   'Cyber Safety for Everyday Life and Work',
   'Digital Inclusion',
-  'Accredited Course',
-  'Vendor Course',
+  'Accredited course via partner route',
+  'Vendor-aligned course / certification preparation',
   'Employer / Partner Course',
   'Custom Programme'
 ];

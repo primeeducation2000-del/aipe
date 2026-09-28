@@ -297,7 +297,7 @@ const adultLearningCards = [
 const courseCards = [
   {
     title: 'Practical AI Skills for Work',
-    audience: 'Adult learners, employees, jobseekers, career changers and professionals.',
+    audience: 'Learners aged 16+ and adults, subject to programme suitability, safeguarding requirements and partner/funder eligibility.',
     topics: ['AI fundamentals', 'Prompting', 'Workplace productivity', 'Responsible AI', 'Checking outputs', 'Privacy', 'Automation basics', 'AI agents'],
     href: '/courses/practical-ai-skills-for-work'
   },
@@ -313,7 +313,7 @@ const courseCards = [
   },
   {
     title: 'Cyber Safety for Everyday Life and Work',
-    audience: 'Adult learners, employees, community learners and people using online services.',
+    audience: 'Learners aged 16+ and adults, employees, community learners and people using online services.',
     topics: ['Passwords', 'Phishing', 'Scams', 'MFA', 'Safe browsing', 'Data privacy', 'AI tool safety', 'Workplace cyber habits']
   },
   {
@@ -863,7 +863,7 @@ function AdultLearningHome({ navigate }) {
             <p className="eyebrow">Adult Learning & Community Skills</p>
             <h2>Practical online learning for adults, employers and delivery partners.</h2>
           </div>
-          <p>AIPE is a UK-based online training organisation delivering practical AI, digital skills, cyber safety and ESOL-linked employability support for adult learners, jobseekers, career changers, employers and training-provider partners.</p>
+          <p>AIPE is a UK-based online training organisation delivering practical AI, digital skills, cyber safety and ESOL-linked employability support for learners aged 16+ and adults, subject to programme suitability, safeguarding requirements and partner/funder eligibility.</p>
         </div>
         <div className="adult-card-grid">
           {adultLearningCards.map(({ icon: Icon, title, text }) => (
@@ -1420,7 +1420,7 @@ function Partners({ navigate }) {
 
   return (
     <>
-      <PageHero eyebrow="Provider partnerships" title="Training & Partnerships" text="AIPE supports councils, colleges, providers and community organisations with practical AI, digital inclusion, ESOL, cyber safety and employability-focused training for adult learners, jobseekers, career changers and digitally excluded communities.">
+      <PageHero eyebrow="Provider partnerships" title="Training & Partnerships" text="AIPE supports councils, colleges, providers and community organisations with practical AI, digital inclusion, ESOL, cyber safety and employability-focused training for learners aged 16+ and adults, subject to programme suitability, safeguarding requirements and partner/funder eligibility.">
         <div className="partner-hero-cta">
           <div className="actions">
             <Link href="/request-partnership-pack" navigate={navigate} className="button primary">Start a Partnership Conversation</Link>
@@ -1434,7 +1434,7 @@ function Partners({ navigate }) {
           <div>
             <p className="eyebrow">Who we support</p>
             <h2>Practical delivery for providers, communities and employers.</h2>
-            <p>AIPE works with organisations that need accessible training for adults building confidence with AI, digital tools, English for work, online safety and career progression.</p>
+            <p>AIPE works with organisations that need accessible training for learners aged 16+ and adults building confidence with AI, digital tools, English for work, online safety and career progression.</p>
             <p className="careful-claim">Delivery can sit inside a wider programme, pilot cohort, community learning offer or employer-funded skills plan.</p>
             <p className="credibility-note">AIPE is a member of the National Digital Inclusion Network.</p>
           </div>
@@ -1465,7 +1465,7 @@ function Partners({ navigate }) {
       </section>
       <section className="section tinted">
         <div className="container">
-          <SectionIntro eyebrow="Featured course cards" title="Practical starting points for adult learners." text="These course areas can be delivered as standalone workshops, short cohorts or specialist modules inside a wider programme." />
+          <SectionIntro eyebrow="Featured course cards" title="Practical starting points for learners aged 16+ and adults." text="These course areas can be delivered as standalone workshops, short cohorts or specialist modules inside a wider programme, subject to suitability, safeguarding and partner/funder eligibility." />
           <div className="course-catalogue-grid">
             {featuredCourses.map(([title, text]) => (
               <article className="course-catalogue-card partnership-course-card" key={title}>
@@ -1932,7 +1932,7 @@ function Contact({ navigate }) {
     {
       icon: GraduationCap,
       title: 'Learner enquiries',
-      text: 'For adult learners, jobseekers, career changers and people interested in practical AI or digital skills.',
+      text: 'For learners aged 16+ and adults interested in practical AI, digital skills, employability or career-change support.',
       href: '/learn',
       action: 'Explore learning'
     }
