@@ -5387,6 +5387,30 @@ button, input, textarea { font: inherit; }
   height: auto;
 }
 
+.footer-badge {
+  display: grid;
+  gap: .65rem;
+  max-width: 270px;
+  margin-top: 1.15rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,.12);
+}
+
+.footer-badge img {
+  display: block;
+  width: min(180px, 100%);
+  height: auto;
+  padding: .45rem;
+  border-radius: 8px;
+  background: rgba(255,255,255,.96);
+}
+
+.footer-badge p {
+  margin: 0;
+  font-size: .84rem;
+  line-height: 1.42;
+}
+
 .screen-preview-page {
   min-height: 100svh;
   background:
