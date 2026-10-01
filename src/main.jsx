@@ -819,7 +819,7 @@ function Header({ path, navigate, menuOpen, setMenuOpen }) {
 }
 
 function Footer({ navigate }) {
-  const disabilityConfidentText = 'AIPE Ltd is a Disability Confident Committed employer, Level 1, valid until 30 September 2029.';
+  const disabilityConfidentText = 'AIPE Ltd is a Disability Confident Employer, Level 2, valid until 1 October 2029.';
 
   return (
     <footer className="footer">
@@ -830,7 +830,7 @@ function Footer({ navigate }) {
           </div>
           <p>AI training, corporate upskilling, funded delivery support, AI engineering and managed AI services, explained in plain English.</p>
           <div className="footer-badge">
-            <img src="/disability-confident-committed.png" alt="Disability Confident Committed employer badge" />
+            <img src="/disability-confident-employer.png" alt="Disability Confident Employer Level 2 badge" />
             <p>{disabilityConfidentText}</p>
           </div>
         </div>
@@ -1595,7 +1595,7 @@ function Partners({ navigate }) {
             <p>AIPE works with organisations that need accessible training for learners aged 16+ and adults building confidence with AI, digital tools, English for work, online safety and career progression.</p>
             <p className="careful-claim">Delivery can sit inside a wider programme, pilot cohort, community learning offer or employer-funded skills plan.</p>
             <p className="credibility-note">AIPE is a member of the National Digital Inclusion Network.</p>
-            <p className="credibility-note">AIPE Ltd is a Disability Confident Committed employer, Level 1, valid until 30 September 2029.</p>
+            <p className="credibility-note">AIPE Ltd is a Disability Confident Employer, Level 2, valid until 1 October 2029.</p>
           </div>
           <div className="provider-capability-grid">
             {supportGroups.map((item) => <span key={item}><CheckCircle2 size={18} />{item}</span>)}
@@ -1934,7 +1934,7 @@ function Compliance({ navigate }) {
         <div className="container narrow disclaimer-panel">
           <h2>Current status</h2>
           <p>AIPE does not currently claim to be an Ofsted-regulated provider, awarding body, approved centre or funded provider. Where funded or accredited provision is required, AIPE works under the relevant lead provider, awarding organisation or funder requirements, including internal quality assurance and final assessment sign-off rules.</p>
-          <p>AIPE Ltd is a Disability Confident Committed employer, Level 1, valid until 30 September 2029.</p>
+          <p>AIPE Ltd is a Disability Confident Employer, Level 2, valid until 1 October 2029.</p>
         </div>
       </section>
     </>
