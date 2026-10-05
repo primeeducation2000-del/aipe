@@ -5387,22 +5387,51 @@ button, input, textarea { font: inherit; }
   height: auto;
 }
 
-.footer-badge {
+.footer-badges {
   display: grid;
-  gap: .65rem;
-  max-width: 270px;
+  grid-template-columns: repeat(2, minmax(180px, 1fr));
+  gap: 1rem;
+  max-width: 560px;
   margin-top: 1.15rem;
   padding-top: 1rem;
   border-top: 1px solid rgba(255,255,255,.12);
 }
 
+.footer-badges h3 {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: white;
+  font-size: .9rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.footer-badge {
+  display: grid;
+  grid-template-rows: 106px auto;
+  gap: .5rem;
+  align-items: start;
+  align-content: start;
+  min-width: 0;
+}
+
 .footer-badge img {
   display: block;
-  width: min(180px, 100%);
+  width: min(170px, 100%);
   height: auto;
-  padding: .45rem;
+  max-height: 106px;
+  object-fit: contain;
+  object-position: left top;
+  padding: .32rem;
   border-radius: 8px;
   background: rgba(255,255,255,.96);
+}
+
+.footer-badge.cyber img {
+  width: 108px;
+  height: 106px;
+  object-position: center;
+  padding: .38rem;
 }
 
 .footer-badge p {
@@ -6063,6 +6092,10 @@ button, input, textarea { font: inherit; }
   .hero-stages { grid-template-columns: 1fr; }
   .solution-teaser { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
+  .footer-badges {
+    grid-template-columns: 1fr;
+    max-width: 330px;
+  }
   .actions { align-items: stretch; }
   .button { width: 100%; }
   .text-link { justify-content: center; width: 100%; }

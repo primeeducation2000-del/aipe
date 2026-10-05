@@ -820,6 +820,7 @@ function Header({ path, navigate, menuOpen, setMenuOpen }) {
 
 function Footer({ navigate }) {
   const disabilityConfidentText = 'AIPE Ltd is a Disability Confident Employer, Level 2, valid until 1 October 2029.';
+  const cyberEssentialsText = 'AIPE Ltd is Cyber Essentials certified, valid until 1 October 2027.';
 
   return (
     <footer className="footer">
@@ -829,9 +830,16 @@ function Footer({ navigate }) {
             <img src="/aipe-logo-main-lockup.png" alt="AIPE - AI in Plain English" />
           </div>
           <p>AI training, corporate upskilling, funded delivery support, AI engineering and managed AI services, explained in plain English.</p>
-          <div className="footer-badge">
-            <img src="/disability-confident-employer.png" alt="Disability Confident Employer Level 2 badge" />
-            <p>{disabilityConfidentText}</p>
+          <div className="footer-badges" aria-label="AIPE trust badges">
+            <h3>Verified credentials</h3>
+            <div className="footer-badge cyber">
+              <img src="/cyber-essentials-certified.png" alt="Cyber Essentials Certified badge" />
+              <p>{cyberEssentialsText}</p>
+            </div>
+            <div className="footer-badge">
+              <img src="/disability-confident-employer.png" alt="Disability Confident Employer Level 2 badge" />
+              <p>{disabilityConfidentText}</p>
+            </div>
           </div>
         </div>
         <FooterCol title="Explore" items={['Learn', 'For Business', 'AI Solutions', 'Partners']} navigate={navigate} />
